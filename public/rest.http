@@ -1,0 +1,20 @@
+###
+@api_v2_1 = http://new.loc/v2
+
+###
+
+POST {{api_v2_1}}/login/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone": "+7 (777) 369-7417",
+    "password": "12122121Isa"
+}
+###
+
+POST {{api_v2_1}}/signup/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone": "+7 (777) 369-7419"
+}

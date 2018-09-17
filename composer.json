@@ -1,0 +1,15 @@
+{
+    "require": {
+        "slim/slim": "^3.0",
+        "davidepastore/slim-validation": "^0.5.1",
+        "tuupola/slim-jwt-auth": "^3.1"
+    },
+    "autoload": {
+		"psr-4": {
+			"Controllers\\": "app/controllers",
+			"Middleware\\": "app/middleware",
+			"Models\\": "app/models",
+			"Lib\\": "app/lib"
+		}
+	}
+}

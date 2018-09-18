@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @param $array
- * @param $message
+ * @param $data
+ * @param string $message
  */
 function dd($data, $message = "")
 {
@@ -12,7 +12,7 @@ function dd($data, $message = "")
 
 
 /**
- * @param $array
+ * @param $data
  * @param string $message
  */
 function pe($data, $message = "")

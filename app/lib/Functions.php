@@ -29,25 +29,69 @@ class Functions
 
     /**
      * @param $phone
-     * @param $country_id
+     * @return array|bool|mixed
+     * @throws \Exception
      */
-    public static function sendSMS($phone, $country_id = 68)
+    public static function orderPhoneByCountry($phone){
+        try {
+            $four = substr($phone, 0, 4);
+            $three = substr($phone, 0, 3);
+            $two = substr($phone, 0, 2);
+            $one = substr($phone, 0, 1);
+
+            $sql = "SELECT * FROM countries WHERE 
+                        code = :four OR 
+                        code = :three OR 
+                        code = :two OR 
+                        code = :one ORDER BY code DESC LIMIT 1";
+            $country = Db::getInstance()->Select($sql,
+                [
+                    'four' => $four,
+                    'three' => $three,
+                    'two' => $two,
+                    'one' => $one
+                ]
+            );
+
+            if ($country) {
+                $country['phone'] = $phone;
+                return $country;
+            }
+
+            return false;
+        } catch (\PDOException $e) {
+            Logging::getInstance()->db($e);
+        } catch (\Exception $e) {
+            Logging::getInstance()->err($e);
+        }
+    }
+
+    /**
+     * @param $phone
+     * @param int $country_id
+     * @return bool|\PDOStatement|string
+     * @throws \Exception
+     */
+    public static function sendSMS($phone)
     {
+        $order = self::orderPhoneByCountry($phone);
+
         try {
             $sql = "INSERT INTO sms(code, phone, ip, status, country_id) VALUES(:code, :phone, :ip, :status, :country_id)";
             $code = mt_rand(10000, 99999);
 
-            $db = Db::getInstance()->Query($sql, [
+            $db = Db::getInstance()->Query($sql,
+                [
                 'code' => $code,
                 'phone' => $phone,
                 'ip' => self::getClientIP(),
                 'status' => 'new',
-                'country_id' => $country_id
-            ]);
+                'country_id' => $order['id']
+                ]
+            );
 
             if ($db) {
                 if (getenv('SMS_API_KEY') && APP_ENV == 'production') {
-                    $startTime = microtime(true);
                     $api = new MobizonApi(getenv('SMS_API_KEY'), 'api.mobizon.kz');
                     $api->call('message',
                         'sendSMSMessage',
@@ -55,15 +99,50 @@ class Functions
                             'recipient' => $phone,
                             'text' => 'Код подтверждения OTAU: ' . $code,
                         ));
-                    // $endTime = microtime(true) - $startTime;
                 }
                 return $db;
             }
 
             return false;
         } catch (\PDOException $e) {
-
+            Logging::getInstance()->db($e);
+        } catch (\Exception $e) {
+            Logging::getInstance()->err($e);
         }
+    }
+
+
+    /**
+     * @param $phone
+     * @param $code
+     * @return array|bool|mixed
+     */
+    public static function checkCode($phone, $code)
+    {
+        $db = Db::getInstance();
+        $sql = "SELECT * FROM sms WHERE phone = :phone AND code = :code AND status = :status";
+        $checkStatus = $db->Select($sql,
+            [
+                'phone' => $phone,
+                'code' => $code,
+                'status' => 'new'
+            ]
+        );
+
+        if ($checkStatus) {
+            $sql = "UPDATE sms SET status = :status WHERE phone = :phone AND code = :code";
+            $used = $db->Query($sql, [
+                'status' => 'used',
+                'phone' => $phone,
+                'code' => $code
+            ]);
+
+            $created_at = strtotime($checkStatus['created_at']);
+            $time = time() - $created_at;
+
+            return $used && $time <= 60 * 5 ? true : false; // 5 min check
+        }
+        return false;
     }
 
 

@@ -35,6 +35,7 @@ class ComposerStaticIniteb2864dfc797658e5b8db2ff7b18aace
         ),
         'M' => 
         array (
+            'Monolog\\' => 8,
             'Models\\' => 7,
             'Middleware\\' => 11,
         ),
@@ -100,6 +101,10 @@ class ComposerStaticIniteb2864dfc797658e5b8db2ff7b18aace
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'Models\\' => 
         array (

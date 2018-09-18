@@ -6,7 +6,8 @@ class Db
 {
     private static $_instance = null;
 
-    private function __construct () {
+    private function __construct ()
+    {
 
         $db_cfg = require ROOT . '/config/db_cfg.php';
 

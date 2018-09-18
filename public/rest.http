@@ -5,6 +5,7 @@
 
 POST {{api_v2_1}}/login/ HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer qwfqwifq8wfg7qfgq
 
 {
     "phone": "+7 (777) 369-7417",
@@ -16,5 +17,14 @@ POST {{api_v2_1}}/signup/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "phone": "+7 (777) 369-7419"
+    "phone": "+7 (105) 369-7415"
+}
+###
+
+POST {{api_v2_1}}/signup/verify-phone HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone": "71053697415",
+    "code": 61065
 }

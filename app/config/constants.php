@@ -45,6 +45,8 @@ define('BOOLEAN', '3');
 
 
 // api errors
+define('UNEXPECTED_ERROR', 0);
+
 define('NO_VALIDATE_PARAMETER',       12);
 
 define('USER_ERROR',                  100);

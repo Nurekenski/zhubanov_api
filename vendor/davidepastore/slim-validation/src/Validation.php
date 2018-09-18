@@ -111,18 +111,17 @@ class Validation
             $errors = $request->getAttribute('errors');
 
             foreach ($errors as $param => $error) {
-                $errMessage = str_replace($request->getParam($param), '', $error[0]);
-                $errMessage = str_replace('"" ', '', $errMessage);
+                $errMessage = str_replace([$request->getParam($param), '""', 'null'],
+                    '', $error[0]);
 
                 $errData = [
                     "errcode" => NO_VALIDATE_PARAMETER,
-                    "error" => $param . ' ' . $errMessage
+                    "error" => $param . ' ' . trim($errMessage)
                 ];
 
                 $response->getBody()->write(json_encode($errData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
                 return $response->withStatus(BAD_REQUEST);
             }
-
         }
 
         return $next($request, $response);

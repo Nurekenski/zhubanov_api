@@ -7,7 +7,8 @@ define('ROOT', __DIR__);
 
 require ROOT . '/../vendor/autoload.php';
 require ROOT . '/config/constants.php';
-require ROOT . '/config/dd.php';
+require ROOT . '/lib/DdPe.php';
+require ROOT . '/lib/Logging.php';
 
 $configuration = require ROOT . '/config/slim_cfg.php';
 $app = new \Slim\App($configuration);

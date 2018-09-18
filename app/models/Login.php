@@ -4,6 +4,7 @@ namespace Models;
 
 use Lib\Functions;
 use Lib\Validate;
+use Lib\Logging;
 
 class Login
 {
@@ -21,7 +22,7 @@ class Login
             }
             return false;
         } catch (\Exception $e) {
-
+            Logging::getInstance()->err($e);
         }
     }
 
@@ -50,7 +51,7 @@ class Login
             if ($auth['error']) return false;
             return $auth;
         } catch (\Exception $e) {
-
+            Logging::getInstance()->err($e);
         }
     }
 }

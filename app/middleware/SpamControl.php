@@ -4,14 +4,16 @@ namespace Middleware;
 
 use Lib\Db;
 use Lib\Functions;
+use Lib\Logging;
 
 class SpamControl
 {
     /**
      * @param $request
      * @param $response
-     * @param array $args
+     * @param $next
      * @return mixed
+     * @throws \Exception
      */
     public function __invoke($request, $response, $next)
     {
@@ -24,10 +26,10 @@ class SpamControl
             $created_at = strtotime($block['created_at']);
             $time = time() - $created_at;
 
-            if ($time <= 60) {
+            if (APP_ENV && $time <= 60) {
                 $errors = [
                     "errcode" => USER_LIMIT,
-                    "error" => "Stop spamming. Wait 1 min"
+                    "error" => "To resend SMS, wait 1 min"
                 ];
 
                 $response->getBody()->write(json_encode($errors, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
@@ -37,7 +39,9 @@ class SpamControl
             return $next($request, $response);
 
         } catch (\PDOException $e) {
-
+            Logging::getInstance()->db($e);
+        } catch (\Exception $e) {
+            Logging::getInstance()->err($e);
         }
     }
 }

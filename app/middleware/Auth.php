@@ -3,6 +3,7 @@
 namespace Middleware;
 
 use Firebase\JWT\JWT;
+use Lib\Logging;
 
 class Auth
 {
@@ -14,9 +15,9 @@ class Auth
      */
     public function __invoke($request, $response, $next)
     {
-        try {
-            $auth = $request->getHeader("Authorization");
+        $auth = $request->getHeader("Authorization");
 
+        try {
             if (preg_match('/Bearer\s(\S+)/', $auth[0], $matches)) {
                 $token = $matches[1];
                 $payload = JWT::decode($token, JWT_SECRET, ['HS256']);
@@ -42,6 +43,8 @@ class Auth
                 return $response->withStatus(UNAUTHORIZED);
             }
         } catch (\Exception $e) {
+            Logging::getInstance()->JWTlog($e, $auth);
+
             $response->getBody()->write(json_encode([
                 'errcode' => NOT_AUTHORIZED,
                 'error' => "Not authorized"

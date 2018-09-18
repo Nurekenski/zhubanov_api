@@ -108,14 +108,21 @@ class Validation
         $request = $request->withAttribute($this->translator_name, $this->getTranslator());
 
         if ($request->getAttribute('has_errors')) {
+            $errors = $request->getAttribute('errors');
 
-            $errors = [
-                "errcode" => NO_VALIDATE_PARAMETER,
-                "error" => $request->getAttribute('errors')
-            ];
+            foreach ($errors as $param => $error) {
+                $errMessage = str_replace($request->getParam($param), '', $error[0]);
+                $errMessage = str_replace('"" ', '', $errMessage);
 
-            $response->getBody()->write(json_encode($errors, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-            return $response->withStatus(BAD_REQUEST);
+                $errData = [
+                    "errcode" => NO_VALIDATE_PARAMETER,
+                    "error" => $param . ' ' . $errMessage
+                ];
+
+                $response->getBody()->write(json_encode($errData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+                return $response->withStatus(BAD_REQUEST);
+            }
+
         }
 
         return $next($request, $response);

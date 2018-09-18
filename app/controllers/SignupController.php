@@ -16,8 +16,6 @@ class SignupController extends Controller
      */
     public function signUp($request, $response, $args = [])
     {
-        $this->setQuery($request, $response, $args);
-
         $phone = Validate::standartizePhone($this->getParam('phone'));
 
         if (Validate::checkUserExist($phone)) {

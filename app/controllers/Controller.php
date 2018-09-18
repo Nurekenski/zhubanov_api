@@ -2,24 +2,27 @@
 
 namespace Controllers;
 
+use \Interop\Container\ContainerInterface as ContainerInterface;
+
 use Firebase\JWT\JWT;
 
 abstract class Controller
 {
+    protected $ci;
+
     protected $request;
     protected $response;
-    protected $args;
+
 
     /**
-     * @param $request
-     * @param $response
-     * @param array $args
+     * Controller constructor.
+     * @param ContainerInterface $ci
      */
-    public function setQuery($request, $response, $args = [])
+    public function __construct(ContainerInterface $ci)
     {
-        $this->request = $request;
-        $this->response = $response;
-        $this->args = $args;
+        $this->ci = $ci;
+        $this->request = $ci['request'];
+        $this->response = $ci['response'];
     }
 
 

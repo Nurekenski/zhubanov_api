@@ -7,16 +7,15 @@ use Lib\Validate;
 
 class LoginController extends Controller
 {
+
     /**
-     * @param Request $request
-     * @param Response $response
+     * @param $request
+     * @param $response
      * @param array $args
      * @return mixed
      */
     public function signIn($request, $response, $args = [])
     {
-        $this->setQuery($request, $response, $args);
-
         $phone = Validate::standartizePhone($this->getParam('phone'));
         $password = $this->getParam('password');
 

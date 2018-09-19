@@ -4,4 +4,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule .* - [env=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-RewriteRule ^ app.php [QSA,L]
+RewriteRule ^ index.php [QSA,L]

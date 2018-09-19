@@ -12,8 +12,8 @@ if ($serverEnv) {
 }
 
 return [
-    'db_host' => 'localhost',
+    'db_host' => 'mysql_db',
     'db_name' => 'api',
     'db_user' => 'root',
-    'db_password' => '@@@123456@@@'
+    'db_password' => '123456999'
 ];

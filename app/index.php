@@ -22,6 +22,6 @@ $app->add(function ($req, $res, $next) {
         ->withHeader('Content-Type', 'application/json');
 });
 
-require ROOT . '/config/routes.php';
+require ROOT . '/config/router/routes.php';
 
 $app->run();

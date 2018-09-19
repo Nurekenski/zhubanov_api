@@ -51,7 +51,12 @@ class SignupController extends Controller
                 return $this->success(OK,
                     [
                         'message' => 'Your successfully confirmed phone',
-                        'access_token' => $this->createToken($user_id, $phone)
+                        'access_token' => $this->createToken($user_id,
+                            [
+                                'phone' => $phone,
+                                'iss' => 'token.account.tmp'
+                            ]
+                        )
                     ]
                 );
             }
@@ -61,10 +66,45 @@ class SignupController extends Controller
     }
 
 
+    /**
+     * @param $request
+     * @param $response
+     * @param array $args
+     * @return mixed
+     * @throws \Exception
+     */
     public function signUpData($request, $response, $args = [])
     {
         $temp_auth= $request->getAttribute('temp_auth');
 
-        pe($temp_auth);
+        $password = $this->getParam('password');
+        $name = $this->getParam('name');
+        $lastname = $this->getParam('lastname');
+        $birthday = $this->getParam('birthday');
+        $gender = $this->getParam('gender');
+        $inviter_id = $this->getParam('inviter_id');
+
+        if($gender != 'male' && $gender != 'female') {
+            return $this->error(BAD_REQUEST, NO_VALIDATE_PARAMETER, "gender should be: male or female");
+        }
+
+        $user = Validate::checkUserExist('', $temp_auth->user_id);
+        if($user['password'] == !null) {
+            return $this->error(BAD_REQUEST, USER_ERROR, "You have already set a password when registering");
+        }
+
+        $newUser = Signup::setUserData($temp_auth->user_id, $password, $name, $lastname, $birthday, $gender, $inviter_id);
+
+        if ($newUser) {
+            Signup::regInMatrix($temp_auth->user_id, $password, $temp_auth->phone, $name, $lastname); // TODO: update server
+
+            return $this->success(OK,
+                [
+                    'message' => 'Data successfully saved. Your ID: ' . $temp_auth->user_id
+                ]
+            );
+        } else {
+            return $this->error(INTERNAL_SERVER_ERROR, UNEXPECTED_ERROR, "Server error");
+        }
     }
 }

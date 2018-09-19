@@ -1,5 +1,6 @@
 ###
-@api_v2_1 = http://new.loc/v2
+#@api_v2_1 = http://new.loc/v2
+@api_v2_1 = http://new.loc/app/v2
 
 ###
 
@@ -16,7 +17,7 @@ POST {{api_v2_1}}/signup/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "phone": "+7 (105) 369-7415"
+    "phone": "+7 (105) 369-7123"
 }
 ###
 
@@ -24,16 +25,29 @@ POST {{api_v2_1}}/signup/verify-phone HTTP/1.1
 Content-Type: application/json
 
 {
-    "phone": "71053697415",
-    "code": 31185
+    "phone": "71053697123",
+    "code": 72510
 }
 
 ###
 
 POST {{api_v2_1}}/signup/data HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzczNjIzNTYsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1Mzk5NTQzNTYsInVzZXJfaWQiOiIyIiwicGhvbmUiOiI3Nzc3MzY5NzQxNyIsInBhc3N3b3JkIjoiJDJ5JDEwJGwyTnE4Yk1iTlJiVU01Qndad3lMaGViOTg2blVVQ1wvenJjM0cydGdReDd3ek5tR0NjWjhkaSJ9.q-FKgjMYHdKiKhUfydT2tJ_F4ohrJ1ba_ppbyXT2NvU
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzczNzg5ODAsImlzcyI6InRva2VuLmFjY291bnQudG1wIiwiZXhwIjoxNTM3MzgyNTgwLCJ1c2VyX2lkIjoiNDgiLCJwaG9uZSI6IjcxMDUzNjk3MTIzIn0.I_Ruztm_-bkRpL0Gqwa-0r8Xb5RT9aHjNkqa6UGVXs0
 
 {
+    "password": "dw31231",
+    "name": "sdq",
+    "lastname": "dq",
+    "birthday": "1999-03-12",
+    "gender": "male",
+    "inviter_id": 1234
+}
+###
 
+GET {{api_v2_1}}/user/data HTTP/1.1
+Content-Type: application/json
+
+{
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzczODA2OTIsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1Mzk5NzI2OTIsInVzZXJfaWQiOiIyIiwicGhvbmUiOiI3Nzc3MzY5NzQxNyIsInBhc3N3b3JkIjoiJDJ5JDEwJGwyTnE4Yk1iTlJiVU01Qndad3lMaGViOTg2blVVQ1wvenJjM0cydGdReDd3ek5tR0NjWjhkaSJ9.WUnYdqVTwTGjHYBc_XtdKI78p-u4ccf57TGqEuLimrU"
 }

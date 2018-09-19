@@ -4,6 +4,7 @@ define('DEBUG', true);
 define('APP_ENV', getenv('APP_ENV'));
 
 define('NOTIFICATION_SERVER', 'https://otau.org/notification');
+define('NETWORK_SERVER', 'http://samruk.test4.myronchuk.tcl.ukrtech.info/otau');
 
 if(APP_ENV == 'production') {
     define('MATRIX_SERVER', 'https://api.msg.otau.org');
@@ -30,7 +31,7 @@ else {
     define('PG_HOST', '104.248.29.151');
     define('PG_PORT', '32785');
 
-    define('JWT_SECRET', '@@@123456@@@');
+    define('JWT_SECRET', '1NVb9ZEsMnya');
 }
 
 
@@ -43,19 +44,19 @@ define('BOOLEAN', '3');
 
 
 // api errors
-define('UNEXPECTED_ERROR', 0);
+define('UNEXPECTED_ERROR', 'UNEXPECTED_ERROR');
 
-define('NO_VALIDATE_PARAMETER',       12);
+define('NO_VALIDATE_PARAMETER', 'NO_VALIDATE_PARAMETER');
 
-define('USER_ERROR',                  100);
-define('INVALID_LOGIN_OR_PASSWORD',   101);
-define('USER_EXIST',                  102);
+define('USER_ERROR', 'USER_ERROR');
+define('INVALID_PHONE_OR_PASSWORD', 'INVALID_PHONE_OR_PASSWORD');
+define('USER_EXIST', 'USER_EXIST');
 
-define('PASSWORD_ERROR',              111);
-define('CODE_ERROR',                  110);
+define('PASSWORD_ERROR', 'PASSWORD_ERROR');
+define('CODE_ERROR', 'CODE_ERROR');
 
-define('USER_LIMIT',                  40);
-define('AVATAR_ERROR',                45);
+define('USER_LIMIT', 'USER_LIMIT');
+define('AVATAR_ERROR', 'AVATAR_ERROR');
 
 
 

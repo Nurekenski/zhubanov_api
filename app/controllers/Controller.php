@@ -61,7 +61,7 @@ abstract class Controller
      */
     public function success($status, $array)
     {
-        $this->response->getBody()->write(json_encode($array, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+        $this->response->getBody()->write(json_encode($array, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 
         return $responseSuccess = $this->response->withStatus($status);
     }
@@ -69,13 +69,12 @@ abstract class Controller
 
     /**
      * @param $user_id
-     * @param string $phone
-     * @param string $password
+     * @param array $data
      * @return string
      */
-    public function createToken($user_id, $phone = '', $password = '')
+    public function createToken($user_id, $data = [])
     {
-        $exp_time = $password ? time() + EXP_TIME : time() + 60 * 60;
+        $exp_time = $data['password'] ? time() + EXP_TIME : time() + 60 * 60;
 
         $payload = [
             'iat' => time(),
@@ -84,8 +83,9 @@ abstract class Controller
             'user_id' => $user_id
         ];
 
-        if ($phone) $payload['phone'] = $phone;
-        if ($password) $payload['password'] = $password;
+        foreach ($data as $key => $value) {
+            $payload[$key] = $value;
+        }
 
         return JWT::encode($payload, JWT_SECRET, "HS256");
     }

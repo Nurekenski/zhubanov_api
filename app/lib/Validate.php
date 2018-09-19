@@ -15,10 +15,12 @@ class Validate
         try {
             $db = Db::getInstance();
             $sql = "SELECT * FROM users WHERE phone = :phone OR id = :id";
-            $user = $db->Select($sql, [
-                'phone' => $phone,
-                'id' => $id,
-            ]);
+            $user = $db->Select($sql,
+                [
+                    'phone' => $phone,
+                    'id' => $id
+                ]
+            );
 
             if ($user) return $user;
             return false;

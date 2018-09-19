@@ -6,12 +6,12 @@ class Functions
 {
     /**
      * @param $url
-     * @param $curl_data
+     * @param array $curl_data
      * @param array $headers
      * @param bool $decode
      * @return mixed
      */
-    public static function postQuery($url, $curl_data, $headers = [], $decode = true)
+    public static function postQuery($url, $curl_data = [], $headers = [], $decode = true)
     {
         $options = [
             CURLOPT_RETURNTRANSFER  => true,

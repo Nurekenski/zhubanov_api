@@ -25,9 +25,14 @@ class LoginController extends Controller
         return $user && $userMatrix ? $this->success(OK,
             [
                 'user_id' => $user['id'],
-                'token' => $this->createToken($user['id'], $user['phone'], $user['password']),
+                'token' => $this->createToken($user['id'],
+                    [
+                        'phone' => $user['phone'],
+                        'password' => $user['password']
+                    ]
+                ),
                 'msg_token' => $userMatrix['access_token']
             ]
-        ) : $this->error(UNAUTHORIZED, INVALID_LOGIN_OR_PASSWORD, "Invalid phone or password");
+        ) : $this->error(UNAUTHORIZED, INVALID_PHONE_OR_PASSWORD, "Invalid phone or password");
     }
 }

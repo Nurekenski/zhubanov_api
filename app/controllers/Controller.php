@@ -68,18 +68,20 @@ abstract class Controller
 
 
     /**
-     * @param $id
+     * @param $user_id
      * @param string $phone
      * @param string $password
      * @return string
      */
-    public function createToken($id, $phone = '', $password = '')
+    public function createToken($user_id, $phone = '', $password = '')
     {
+        $exp_time = $password ? time() + EXP_TIME : time() + 60 * 60;
+
         $payload = [
             'iat' => time(),
             'iss' => ISSUE,
-            'exp' => time() + EXP_TIME,
-            'id' => $id
+            'exp' => $exp_time,
+            'user_id' => $user_id
         ];
 
         if ($phone) $payload['phone'] = $phone;

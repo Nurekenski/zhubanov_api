@@ -5,7 +5,6 @@
 
 POST {{api_v2_1}}/login/ HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer qwfqwifq8wfg7qfgq
 
 {
     "phone": "+7 (777) 369-7417",
@@ -26,5 +25,15 @@ Content-Type: application/json
 
 {
     "phone": "71053697415",
-    "code": 61065
+    "code": 31185
+}
+
+###
+
+POST {{api_v2_1}}/signup/data HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzczNDg1NDMsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1MzczNTIxNDMsInVzZXJfaWQiOiIxNiIsInBob25lIjoiNzEwNTM2OTc0MTUifQ.zl7WPJM80U71_VicVOXLGnZfY0lgSEw2QgJz-mT8czE
+
+{
+
 }

@@ -14,7 +14,8 @@ class Signup
      * @return bool|\PDOStatement|string
      * @throws \Exception
      */
-    public static function setUserID($phone){
+    public static function setUserID($phone)
+    {
         $user = Validate::checkUserExist($phone);
 
         try {
@@ -35,5 +36,10 @@ class Signup
         } catch (\Exception $e) {
             Logging::getInstance()->err($e);
         }
+    }
+
+    public static function setUserData()
+    {
+
     }
 }

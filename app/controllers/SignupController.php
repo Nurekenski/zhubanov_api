@@ -51,12 +51,20 @@ class SignupController extends Controller
                 return $this->success(OK,
                     [
                         'message' => 'Your successfully confirmed phone',
-                        'access_token' => $this->createToken($user_id)
+                        'access_token' => $this->createToken($user_id, $phone)
                     ]
                 );
             }
         } else {
             return $this->error(BAD_REQUEST, CODE_ERROR, "Code error");
         }
+    }
+
+
+    public function signUpData($request, $response, $args = [])
+    {
+        $temp_auth= $request->getAttribute('temp_auth');
+
+        pe($temp_auth);
     }
 }

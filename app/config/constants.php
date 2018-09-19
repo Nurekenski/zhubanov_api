@@ -3,22 +3,20 @@
 define('DEBUG', true);
 define('APP_ENV', getenv('APP_ENV'));
 
+define('NOTIFICATION_SERVER', 'https://otau.org/notification');
 
 if(APP_ENV == 'production') {
     define('MATRIX_SERVER', 'https://api.msg.otau.org');
     define('ACCOUNT_SERVER', 'https://api.account.otau.org');
-    define('NOTIFICATION_SERVER', 'https://otau.org/notification');
 }
 
 elseif(APP_ENV == 'stage') {
     define('MATRIX_SERVER', 'http://api.msg.stage.otau.org');
     define('ACCOUNT_SERVER', 'http://api.account.stage.otau.org');
-    define('NOTIFICATION_SERVER', 'https://otau.org/notification');
 
 } else {
     define('MATRIX_SERVER', 'https://api.msg.otau.org');
-    define('ACCOUNT_SERVER', 'http://172.17.0.1');
-    define('NOTIFICATION_SERVER', 'https://otau.org/notification');
+    define('ACCOUNT_SERVER', 'http://new.loc');
 }
 
 

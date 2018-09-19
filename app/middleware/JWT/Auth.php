@@ -4,6 +4,7 @@ namespace Middleware;
 
 use Firebase\JWT\JWT;
 use Lib\Logging;
+use Lib\Db;
 
 class Auth
 {

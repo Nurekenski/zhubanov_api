@@ -14,5 +14,8 @@ $app->group('/user/data', function () use ($app) {
         ->add(new Validation($userGetDataValidator));
     // end
 
+    //$app->get();
+    $app->post('/test', \Controllers\PhotoController::class . ':test');
+    //$app->post('/avatar', '');
 
 });

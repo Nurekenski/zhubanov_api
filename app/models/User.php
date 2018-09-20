@@ -15,7 +15,7 @@ class User
      * @return array|bool|mixed
      * @throws \Exception
      */
-    public static function getUserData($user_id, $phone)
+    public static function getUserData($user_id, $phone, $network_token)
     {
         try {
             $sql = "SELECT phone, name, lastname, birthday, gender, avatars.path AS avatar, 
@@ -44,11 +44,17 @@ class User
                 }
 
                 $headers = [
-                    'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzczODA2OTIsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1Mzk5NzI2OTIsInVzZXJfaWQiOiIyIiwicGhvbmUiOiI3Nzc3MzY5NzQxNyIsInBhc3N3b3JkIjoiJDJ5JDEwJGwyTnE4Yk1iTlJiVU01Qndad3lMaGViOTg2blVVQ1wvenJjM0cydGdReDd3ek5tR0NjWjhkaSJ9.WUnYdqVTwTGjHYBc_XtdKI78p-u4ccf57TGqEuLimrU',
+                    'Authorization: Bearer ' . $network_token,
                     'Content-Type: application/json'
                 ];
                 $coins = Functions::postQuery(NETWORK_SERVER . '/balance', [], $headers);
-                pe($coins);
+
+                if ($coins['balance'] === null) {
+                    $user['balance'] = null;
+                } else {
+                    $user['balance'] = round($coins['balance'], 2, PHP_ROUND_HALF_DOWN);
+                }
+
                 return $user;
             } else {
                 return false;

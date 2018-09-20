@@ -4,7 +4,7 @@ define('DEBUG', true);
 define('APP_ENV', getenv('APP_ENV'));
 
 define('NOTIFICATION_SERVER', 'https://otau.org/notification');
-define('NETWORK_SERVER', 'http://samruk.test4.myronchuk.tcl.ukrtech.info/otau');
+define('NETWORK_SERVER', 'https://sumrook.tcl.ukrtech.info/otau');
 
 if(APP_ENV == 'production') {
     define('MATRIX_SERVER', 'https://api.msg.otau.org');

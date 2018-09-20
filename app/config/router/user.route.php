@@ -15,4 +15,9 @@ $app->group('/user/data', function () use ($app) {
     // end
 
 
+    $app->put('[/]', \Controllers\UserController::class . ':edit')
+        ->add(new \Middleware\JWT\Auth());
+    // end
+
+
 });

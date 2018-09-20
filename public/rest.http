@@ -1,6 +1,6 @@
 ###
-#@api_v2_1 = http://new.loc/v2
-@api_v2_1 = http://new.loc/app/v2
+@api_v2_1 = http://new.loc/v2
+#@api_v2_1 = http://new.loc/app/v2
 
 ###
 
@@ -51,3 +51,7 @@ Content-Type: application/json
 {
     "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzczODA2OTIsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1Mzk5NzI2OTIsInVzZXJfaWQiOiIyIiwicGhvbmUiOiI3Nzc3MzY5NzQxNyIsInBhc3N3b3JkIjoiJDJ5JDEwJGwyTnE4Yk1iTlJiVU01Qndad3lMaGViOTg2blVVQ1wvenJjM0cydGdReDd3ek5tR0NjWjhkaSJ9.WUnYdqVTwTGjHYBc_XtdKI78p-u4ccf57TGqEuLimrU"
 }
+###
+
+PUT {{api_v2_1}}/user/data HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzczODA2OTIsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1Mzk5NzI2OTIsInVzZXJfaWQiOiIyIiwicGhvbmUiOiI3Nzc3MzY5NzQxNyIsInBhc3N3b3JkIjoiJDJ5JDEwJGwyTnE4Yk1iTlJiVU01Qndad3lMaGViOTg2blVVQ1wvenJjM0cydGdReDd3ek5tR0NjWjhkaSJ9.WUnYdqVTwTGjHYBc_XtdKI78p-u4ccf57TGqEuLimrU

@@ -18,4 +18,9 @@ $app->group('/user/data', function () use ($app) {
     $app->post('/test', \Controllers\PhotoController::class . ':test');
     //$app->post('/avatar', '');
 
+    $app->put('[/]', \Controllers\UserController::class . ':edit')
+        ->add(new \Middleware\JWT\Auth());
+    // end
+
+
 });

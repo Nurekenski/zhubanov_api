@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: User
- * Date: 020 20.09.18
- * Time: 11:16
- */
 
 namespace Controllers;
-
 
 use Lib\Db;
 use Lib\Functions;
@@ -16,74 +9,90 @@ use Models\Password;
 
 class PasswordController extends Controller
 {
-    public function change($request, $response, $args)
+    public function forgot($request, $response, $args = [])
     {
         $phone = Validate::standartizePhone($this->getParam('phone'));
 
         $user = Validate::checkUserExist($phone);
 
-        if(!$user){
-            return $this->error(BAD_REQUEST, USER_NOT_EXIST, 'User not exist!');
+        if(!$user && $user['password'] == null){
+            return $this->error(BAD_REQUEST, USER_NOT_EXIST, 'Phone not exist');
         }
 
         if(!Functions::sendSMS($phone)){
-            $this->error(INTERNAL_SERVER_ERROR, UNEXPECTED_ERROR, "Server error. SMS not sent");
+            return $this->error(INTERNAL_SERVER_ERROR, UNEXPECTED_ERROR, "Server error. SMS not sent");
         }
 
-        $this->success(OK, [
-            'message' => 'confirmation code has been sent to you'
-        ]);
+        return $this->success(OK,
+            [
+                'message' => 'Please confirm the phone'
+            ]
+        );
     }
 
     public function verifyCode($request, $response, $args)
     {
         $phone = Validate::standartizePhone($this->getParam('phone'));
-
         $code = $this->getParam('code');
 
         if(!Functions::checkCode($phone, $code))
             return $this->error(BAD_REQUEST, CODE_ERROR, "Code error");
 
-        $user_id = Validate::checkUserExist($phone)['id'];
+        $user = Validate::checkUserExist($phone);
 
-        $this->success(OK,
+        return $this->success(OK,
             [
                 'message' => 'Your successfully confirmed phone',
-                'access_token' => $this->createToken($user_id,
+                'access_token' => $this->createToken($user['id'],
                     [
-                        'phone' => $phone,
-                        'iss' => 'token.account.tmp'
+                        'phone' => $user['phone'],
+                        'password' => $user['password']
                     ]
                 )
             ]
         );
     }
 
-    public function update()
+    /**
+     * @param $request
+     * @param $response
+     * @param $args
+     * @return mixed
+     */
+    public function update($request, $response, $args)
     {
-        $phone = Validate::standartizePhone($this->getParam('phone'));
-        $user = Validate::checkUserExist($phone);
-        $old_passowrd = $this->getParam('old_password');
-        $new_password = $this->getParam('new_password');
+        $is_auth = $request->getAttribute('is_auth');
 
-        if(!Functions::checkPhoneCodeState($phone)){
-            return $this->error(BAD_REQUEST, CODE_ERROR, 'Password change not confirmed');
+        $type = $this->getParam('type');
+        $user = Validate::checkUserExist($is_auth->phone, $is_auth->user_id);
+
+        if ($type == 'forgot') {
+            $new_password = $this->getParam('new_password');
+
+            if(!Password::updatePassword($user['id'], $new_password)){
+                return $this->error(INTERNAL_SERVER_ERROR, UNEXPECTED_ERROR, "Password not updated");
+            }
+
+            return $this->success(OK, ['message' => 'New password successfully updated']);
+
+        } elseif ($type == 'change') {
+            $old_password = $this->getParam('old_password');
+            $new_password = $this->getParam('new_password');
+
+            if(!$old_password){
+                return $this->error(BAD_REQUEST, NO_VALIDATE_PARAMETER, "old_password must not be empty");
+            }
+            if(!password_verify($old_password, $user['password'])){
+                return $this->error(BAD_REQUEST, INVALID_PHONE_OR_PASSWORD, "Invalid password");
+            }
+
+            if(!Password::updatePassword($user['id'], $new_password)){
+                return $this->error(INTERNAL_SERVER_ERROR, UNEXPECTED_ERROR, "Password not updated");
+            }
+
+            return $this->success(OK, ['message' => 'New password successfully updated']);
+        } else {
+            return $this->error(BAD_REQUEST, NO_VALIDATE_PARAMETER, "type should be: forgot or change");
         }
-
-        if(!password_verify($old_passowrd, $user['password'])){
-            $this->error(INVALID_LOGIN_OR_PASSWORD, "Invalid password");
-        }
-
-        if(!empty($new_password)){
-            $new_password = password_hash($new_password, PASSWORD_DEFAULT);
-        }
-
-        if(!Password::updatePassword($user['id'], $new_password)){
-            $this->error(BAD_REQUEST, UNEXPECTED_ERROR, "Passworn not updating");
-        }
-
-        $this->success(OK, ['message' => 'New password successfully updated']);
-
-
     }
 }

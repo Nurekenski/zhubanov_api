@@ -11,18 +11,9 @@ if (APP_ENV) {
     ];
 }
 
-//return [
-//    'db_host' => 'localhost', //mysql_db
-//    'db_name' => 'api',
-//    'db_user' => 'root',
-//    'db_password' => '123456999'
-//];
-
-
-
 return [
-    'db_host' => 'localhost', //mysql_db
-    'db_name' => 'account',
+    'db_host' => 'mysql_db', //mysql_db
+    'db_name' => 'api',
     'db_user' => 'root',
-    'db_password' => ''
+    'db_password' => '123456999'
 ];

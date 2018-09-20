@@ -58,7 +58,7 @@ define('CODE_ERROR', 'CODE_ERROR');
 define('USER_LIMIT', 'USER_LIMIT');
 define('AVATAR_ERROR', 'AVATAR_ERROR');
 
-
+define('USER_NOT_EXIST', 'USER_NOT_EXIST');
 
 // html errors
 define('OK',                          200);

@@ -174,4 +174,16 @@ class Functions
         return $ipaddress;
     }
 
+    public static function checkPhoneCodeState($phone)
+    {
+        $code = DB::getInstance()->Select('SELECT status FROM sms WHERE phone = :phone',
+            [
+                'phone' => $phone
+            ]);
+        if($code['status'] != 'new'){
+            return false;
+        }
+        return true;
+    }
+
 }

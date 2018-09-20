@@ -122,30 +122,36 @@ class Functions
      */
     public static function checkCode($phone, $code)
     {
-        $db = Db::getInstance();
-        $sql = "SELECT * FROM sms WHERE phone = :phone AND code = :code AND status = :status";
-        $checkStatus = $db->Select($sql,
-            [
-                'phone' => $phone,
-                'code' => $code,
-                'status' => 'new'
-            ]
-        );
+        try {
+            $db = Db::getInstance();
+            $sql = "SELECT * FROM sms WHERE phone = :phone AND code = :code AND status = :status";
+            $checkStatus = $db->Select($sql,
+                [
+                    'phone' => $phone,
+                    'code' => $code,
+                    'status' => 'new'
+                ]
+            );
 
-        if ($checkStatus) {
-            $sql = "UPDATE sms SET status = :status WHERE phone = :phone AND code = :code";
-            $used = $db->Query($sql, [
-                'status' => 'used',
-                'phone' => $phone,
-                'code' => $code
-            ]);
+            if ($checkStatus) {
+                $sql = "UPDATE sms SET status = :status WHERE phone = :phone AND code = :code";
+                $used = $db->Query($sql, [
+                    'status' => 'used',
+                    'phone' => $phone,
+                    'code' => $code
+                ]);
 
-            $created_at = strtotime($checkStatus['created_at']);
-            $time = time() - $created_at;
+                $created_at = strtotime($checkStatus['created_at']);
+                $time = time() - $created_at;
 
-            return $used && $time <= 60 * 5 ? true : false; // 5 min check
+                return $used && $time <= 60 * 5 ? true : false; // 5 min check
+            }
+            return false;
+        } catch (\PDOException $e) {
+            Logging::getInstance()->db($e);
+        } catch (\Exception $e) {
+            Logging::getInstance()->err($e);
         }
-        return false;
     }
 
 
@@ -173,5 +179,4 @@ class Functions
 
         return $ipaddress;
     }
-
 }

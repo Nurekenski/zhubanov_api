@@ -8,8 +8,8 @@ POST {{api_v2_1}}/login/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "phone": "+7 (777) 369-7417",
-    "password": "12122121Isa"
+    "phone": "77472995982",
+    "password": "12122121"
 }
 ###
 
@@ -17,7 +17,7 @@ POST {{api_v2_1}}/signup/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "phone": "+7 (105) 369-7123"
+    "phone": "77472995982"
 }
 ###
 
@@ -55,3 +55,31 @@ Content-Type: application/json
 
 PUT {{api_v2_1}}/user/data HTTP/1.1
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzczODA2OTIsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1Mzk5NzI2OTIsInVzZXJfaWQiOiIyIiwicGhvbmUiOiI3Nzc3MzY5NzQxNyIsInBhc3N3b3JkIjoiJDJ5JDEwJGwyTnE4Yk1iTlJiVU01Qndad3lMaGViOTg2blVVQ1wvenJjM0cydGdReDd3ek5tR0NjWjhkaSJ9.WUnYdqVTwTGjHYBc_XtdKI78p-u4ccf57TGqEuLimrU
+###
+
+POST {{api_v2_1}}/password/forgot HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone": "77472995982"
+}
+
+###
+
+POST {{api_v2_1}}/password/forgot/verify-phone HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone": "77472995982",
+    "code": 44508
+}
+###
+
+POST {{api_v2_1}}/password HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1Mzc0NDM5ODgsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1NDAwMzU5ODgsInVzZXJfaWQiOiIyNSIsInBob25lIjoiNzc0NzI5OTU5ODIiLCJwYXNzd29yZCI6IiQyeSQxMCRSTmMzQzBVOW9SUUZiUENIa2lzQzJlWTJwVDFWd29WbmtyeC4yTnptSzdFOFlzS1NxeG4weSJ9.3q12MYQS5HuMjeLir73IeGOXR3Q2meSSXDN-OF_ATqw
+
+{
+    "type": "forgot",
+    "new_password": "12122121"
+}

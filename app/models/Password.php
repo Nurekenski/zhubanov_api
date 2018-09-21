@@ -23,7 +23,7 @@ class Password
         return Db::getInstance()->Query('UPDATE users SET password = :password WHERE id = :id',
             [
                 'id' => $user_id,
-                'password' => password_hash($new_password, PASSWORD_DEFAULT)
+                'password' => $new_password
             ]
         );
     }

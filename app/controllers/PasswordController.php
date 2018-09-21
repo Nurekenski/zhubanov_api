@@ -69,7 +69,8 @@ class PasswordController extends Controller
         if ($type == 'forgot') {
             $new_password = $this->getParam('new_password');
 
-            if(!Password::updatePassword($user['id'], $new_password)){
+            $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+            if(!Password::updatePassword($user['id'], $password_hash)){
                 return $this->error(INTERNAL_SERVER_ERROR, UNEXPECTED_ERROR, "Password not updated");
             }
 
@@ -86,11 +87,21 @@ class PasswordController extends Controller
                 return $this->error(BAD_REQUEST, INVALID_PHONE_OR_PASSWORD, "Invalid password");
             }
 
-            if(!Password::updatePassword($user['id'], $new_password)){
+            $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+            if(!Password::updatePassword($user['id'], $password_hash)){
                 return $this->error(INTERNAL_SERVER_ERROR, UNEXPECTED_ERROR, "Password not updated");
             }
 
-            return $this->success(OK, ['message' => 'New password successfully updated']);
+            return $this->success(OK,
+                [
+                    'message' => 'New password successfully updated',
+                    'access_token' => $this->createToken($is_auth->user_id,
+                        [
+                            'phone' => $is_auth->phone,
+                            'password' => $password_hash
+                        ]
+                    )
+                ]);
         } else {
             return $this->error(BAD_REQUEST, NO_VALIDATE_PARAMETER, "type should be: forgot or change");
         }

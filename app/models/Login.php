@@ -15,15 +15,11 @@ class Login
      */
     public static function authExec($phone, $password)
     {
-        try {
-            $user = Validate::checkUserExist($phone);
-            if (password_verify($password, $user['password'])) {
-                return $user;
-            }
-            return false;
-        } catch (\Exception $e) {
-            Logging::getInstance()->err($e);
+        $user = Validate::checkUserExist($phone);
+        if (password_verify($password, $user['password'])) {
+            return $user;
         }
+        return false;
     }
 
 
@@ -34,24 +30,20 @@ class Login
      */
     public static function authExecMatrix($phone, $password)
     {
-        try {
-            $url = MATRIX_SERVER . '/_matrix/client/r0/login';
-            $curl_data = [
-                'type' => 'm.login.password',
-                'password' => $password,
-                'identifier' => [
-                    'type' => 'm.id.phone',
-                    'country' => 'KZ',
-                    'number' => $phone
-                ]
-            ];
+        $url = MATRIX_SERVER . '/_matrix/client/r0/login';
+        $curl_data = [
+            'type' => 'm.login.password',
+            'password' => $password,
+            'identifier' => [
+                'type' => 'm.id.phone',
+                'country' => 'KZ',
+                'number' => $phone
+            ]
+        ];
 
-            $auth = Functions::postQuery($url, $curl_data);
+        $auth = Functions::postQuery($url, $curl_data);
 
-            if ($auth['error']) return false;
-            return $auth;
-        } catch (\Exception $e) {
-            Logging::getInstance()->err($e);
-        }
+        if ($auth['error']) return false;
+        return $auth;
     }
 }

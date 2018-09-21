@@ -8,7 +8,7 @@ $app->group('/signup', function () use ($app) {
     $signupValidator = [
         'phone' => v::phone()
     ];
-    $app->post('/', \Controllers\SignupController::class . ':signUp')
+    $app->post('[/]', \Controllers\SignupController::class . ':signUp')
         ->add(new \Middleware\SpamControl())
         ->add(new Validation($signupValidator));
      // end 

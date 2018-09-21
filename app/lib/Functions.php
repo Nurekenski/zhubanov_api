@@ -36,37 +36,31 @@ class Functions
      * @throws \Exception
      */
     public static function orderPhoneByCountry($phone){
-        try {
-            $four = substr($phone, 0, 4);
-            $three = substr($phone, 0, 3);
-            $two = substr($phone, 0, 2);
-            $one = substr($phone, 0, 1);
+        $four = substr($phone, 0, 4);
+        $three = substr($phone, 0, 3);
+        $two = substr($phone, 0, 2);
+        $one = substr($phone, 0, 1);
 
-            $sql = "SELECT * FROM countries WHERE 
-                        code = :four OR 
-                        code = :three OR 
-                        code = :two OR 
-                        code = :one ORDER BY code DESC LIMIT 1";
-            $country = Db::getInstance()->Select($sql,
-                [
-                    'four' => $four,
-                    'three' => $three,
-                    'two' => $two,
-                    'one' => $one
-                ]
-            );
+        $sql = "SELECT * FROM countries WHERE 
+                    code = :four OR 
+                    code = :three OR 
+                    code = :two OR 
+                    code = :one ORDER BY code DESC LIMIT 1";
+        $country = Db::getInstance()->Select($sql,
+            [
+                'four' => $four,
+                'three' => $three,
+                'two' => $two,
+                'one' => $one
+            ]
+        );
 
-            if ($country) {
-                $country['phone'] = $phone;
-                return $country;
-            }
-
-            return false;
-        } catch (\PDOException $e) {
-            Logging::getInstance()->db($e);
-        } catch (\Exception $e) {
-            Logging::getInstance()->err($e);
+        if ($country) {
+            $country['phone'] = $phone;
+            return $country;
         }
+
+        return false;
     }
 
     /**

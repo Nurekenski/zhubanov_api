@@ -25,7 +25,7 @@ $app->group('/password', function () use ($app) {
     $newPassValidator = [
         'new_password' => v::noWhitespace()->notEmpty()->length(6, 36),
     ];
-    $app->post('[/]', \Controllers\PasswordController::class . ':update')
+    $app->put('[/]', \Controllers\PasswordController::class . ':update')
         ->add(new \Middleware\JWT\Auth())
         ->add(new Validation($newPassValidator));
 });

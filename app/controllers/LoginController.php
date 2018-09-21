@@ -20,12 +20,12 @@ class LoginController extends Controller
         $password = $this->getParam('password');
 
         $user = Login::authExec($phone, $password);
-        $userMatrix = Login::authExecMatrix($phone, $password); // TODO: вынести в UPDATE server
-
-        return $user && $userMatrix ? $this->success(OK,
+        #$userMatrix = Login::authExecMatrix($phone, $password); // TODO: вынести в UPDATE server
+        // TODO: Matrix
+        return $user ? $this->success(OK,
             [
                 'user_id' => $user['id'],
-                'token' => $this->createToken($user['id'],
+                'access_token' => $this->createToken($user['id'],
                     [
                         'phone' => $user['phone'],
                         'password' => $user['password']

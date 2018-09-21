@@ -16,21 +16,16 @@ class Password
      */
     public static function updatePassword($user_id, $new_password)
     {
-        try {
-            if (!self::updatePasswordMatrix($user_id, $new_password))
-                return false;
+//        if (!self::updatePasswordMatrix($user_id, $new_password))
+//            return false;
+        // TODO: Matrix
 
-            return Db::getInstance()->Query('UPDATE users SET password = :password WHERE id = :id',
-                [
-                    'id' => $user_id,
-                    'password' => password_hash($new_password, PASSWORD_DEFAULT)
-                ]
-            );
-        } catch (\PDOException $e) {
-            Logging::getInstance()->db($e);
-        } catch (\Exception $e) {
-            Logging::getInstance()->err($e);
-        }
+        return Db::getInstance()->Query('UPDATE users SET password = :password WHERE id = :id',
+            [
+                'id' => $user_id,
+                'password' => password_hash($new_password, PASSWORD_DEFAULT)
+            ]
+        );
     }
 
     /**
@@ -38,18 +33,12 @@ class Password
      * @param $new_password
      */
     public function updatePasswordMatrix($user_id, $new_password) {
-        try {
-            $name = "@id" . $user_id . ":api.msg.otau.org";
-            $matrixDb = Psql::get()->connect()->Query("UPDATE users SET password_hash = '". password_hash($new_password, PASSWORD_DEFAULT) .
-                "' WHERE name = '$name'");
+        $name = "@id" . $user_id . ":api.msg.otau.org";
+        $matrixDb = Psql::get()->connect()->Query("UPDATE users SET password_hash = '". password_hash($new_password, PASSWORD_DEFAULT) .
+            "' WHERE name = '$name'");
 
-            if ($matrixDb) return true;
+        if ($matrixDb) return true;
 
-            return false;
-        } catch (\PDOException $e) {
-            Logging::getInstance()->db($e);
-        } catch (\Exception $e) {
-            Logging::getInstance()->err($e);
-        }
+        return false;
     }
 }

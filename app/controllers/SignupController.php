@@ -96,8 +96,8 @@ class SignupController extends Controller
         $newUser = Signup::setUserData($temp_auth->user_id, $password, $name, $lastname, $birthday, $gender, $inviter_id);
 
         if ($newUser) {
-            Signup::regInMatrix($temp_auth->user_id, $password, $temp_auth->phone, $name, $lastname); // TODO: update server
-
+            #Signup::regInMatrix($temp_auth->user_id, $password, $temp_auth->phone, $name, $lastname); // TODO: update server
+            // TODO: Matrix
             return $this->success(OK,
                 [
                     'message' => 'Data successfully saved. Your ID: ' . $temp_auth->user_id

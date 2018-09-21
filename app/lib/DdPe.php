@@ -6,7 +6,7 @@
  */
 function dd($data, $message = "")
 {
-    var_dump($data);
+    var_export($data);
     die($message);
 }
 

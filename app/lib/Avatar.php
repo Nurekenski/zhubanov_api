@@ -1,15 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: User
- * Date: 020 20.09.18
- * Time: 15:52
- */
 
 namespace Lib;
 
+use Lib\Logging;
 
-class Photo
+class Avatar
 {
     public $image = null;
     public $name = null;
@@ -20,30 +15,44 @@ class Photo
     public function __construct($image)
     {
         $this->image = $image;
-        $this->setType($image);
+        $this->setType();
         $this->generateName();
     }
 
     public function save()
     {
-        $savePath = __DIR__ . '/../../public/images/' . $this->name;  // todo вынести в конфиг
+        $savePath = ROOT . '/../images/' . $this->name;  // todo вынести в конфиг
+
         $tmpName = $this->image['tmp_name'];
-        if(!move_uploaded_file($tmpName, $savePath)){
+
+        if (!move_uploaded_file($tmpName, $savePath)){
             return false;
         }
         return true;
     }
 
-    private function setType($file) {
-        $pic = $file['type'];
-        switch($pic) {
-            case 'image/jpeg': $this->type = 'jpg'; break;
-            case 'image/png': $this->type = 'png'; break;
-            case 'image/gif': $this->type = 'gif'; break;
+
+    public static function delete($path)
+    {
+        if ( (@unlink(ROOT . '/..' . $path)) ) {
+            return true;
         }
+        return false;
     }
 
-    function generateName($length = 10) {
+    private function setType() {
+        $pic = $this->image['type'];
+
+        switch($pic) {
+            case 'image/jpg': $this->type = 'jpg'; return true;
+            case 'image/jpeg': $this->type = 'jpeg'; return true;
+            case 'image/png': $this->type = 'png'; return true;
+            case 'image/gif': $this->type = 'gif'; return true;
+        }
+        return $this->type;
+    }
+
+    function generateName($length = 15) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -56,7 +65,7 @@ class Photo
 
     public function checkType()
     {
-        if(!$this->type){
+        if (!$this->type){
             return false;
         }
         return true;

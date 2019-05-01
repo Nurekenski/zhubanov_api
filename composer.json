@@ -12,7 +12,7 @@
 			"Models\\": "app/models",
 			"Lib\\": "app/lib"
 		}
-	} 
+	},
   "post-install-cmd": {
      "chmod -R 777 public/"
 }

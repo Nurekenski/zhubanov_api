@@ -16,7 +16,8 @@ class LoginController extends Controller
      */
     public function signIn($request, $response, $args = [])
     {
-        $phone = Validate::standartizePhone($this->getParam('phone'));
+        // $phone = Validate::standartizePhone($this->getParam('phone'));
+        $phone = $this->getParam('phone');
         $password = $this->getParam('password');
 
         $user = Login::authExec($phone, $password);
@@ -31,7 +32,7 @@ class LoginController extends Controller
                         'password' => $user['password']
                     ]
                 ),
-                'msg_token' => $userMatrix['access_token']
+              
             ]
         ) : $this->error(UNAUTHORIZED, INVALID_PHONE_OR_PASSWORD, "Invalid phone or password");
     }

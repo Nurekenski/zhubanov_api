@@ -6,6 +6,7 @@ use Lib\Logging;
 
 class Avatar
 {
+
     public $image = null;
     public $name = null;
     public $path = null;
@@ -40,7 +41,8 @@ class Avatar
         return false;
     }
 
-    private function setType() {
+    private function setType() 
+    {
         $pic = $this->image['type'];
 
         switch($pic) {
@@ -52,7 +54,8 @@ class Avatar
         return $this->type;
     }
 
-    function generateName($length = 15) {
+    function generateName($length = 15) 
+    {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';

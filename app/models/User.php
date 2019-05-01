@@ -15,47 +15,40 @@ class User
      * @return array|bool|mixed
      * @throws \Exception
      */
-    public static function getUserData($user_id, $phone, $network_token)
+    public static function getUserData($user_id, $email, $network_token)
     {
-        $sql = "SELECT phone, name, lastname, birthday, gender, avatars.path AS avatar, 
-            country, region, city,
-            email, nickname, address, postcode
-            FROM users
-            LEFT JOIN countries ON countries.id = users.country_id
-            
-            LEFT JOIN avatars ON avatars.user_id = users.id
-            WHERE users.id = :id AND users.phone = :phone
-            ORDER BY avatars.id DESC";
+        $sql = "SELECT username, name, surname, email, password,phone from users_table where id='$user_id'";
 
         $user = Db::getInstance()->Select($sql,
             [
                 'id' => $user_id,
-                'phone' => $phone
+                'email' => $email
             ]
         );
-        if ($user) {
-            if($user['avatar']) {
-                $user['avatar'] = ACCOUNT_SERVER . $user['avatar'];
-            } else {
-                $user['avatar'] = null;
-            }
+        return $user;
+        // if ($user) {
+        //     if($user['avatar']) {
+        //         $user['avatar'] = ACCOUNT_SERVER . $user['avatar'];
+        //     } else {
+        //         $user['avatar'] = null;
+        //     }
 
-            $headers = [
-                'Authorization: Bearer ' . $network_token,
-                'Content-Type: application/json'
-            ];
-            $coins = Functions::postQuery(NETWORK_SERVER . '/balance', [], $headers);
+        //     $headers = [
+        //         'Authorization: Bearer ' . $network_token,
+        //         'Content-Type: application/json'
+        //     ];
+        //     $coins = Functions::postQuery(NETWORK_SERVER . '/balance', [], $headers);
 
-            if ($coins['balance'] === null) {
-                $user['balance'] = null;
-            } else {
-                $user['balance'] = round($coins['balance'], 2, PHP_ROUND_HALF_DOWN);
-            }
+        //     if ($coins['balance'] === null) {
+        //         $user['balance'] = null;
+        //     } else {
+        //         $user['balance'] = round($coins['balance'], 2, PHP_ROUND_HALF_DOWN);
+        //     }
 
-            return $user;
-        } else {
-            return false;
-        }
+        //     return $user;
+        // } else {
+        //     return false;
+        // }
     }
 
     /**

@@ -9,6 +9,7 @@ $app->group('/user/data', function () use ($app) {
     $userGetDataValidator = [
         'access_token' => v::notEmpty()
     ];
+
     $app->get('[/]', \Controllers\UserController::class . ':get')
         ->add(new \Middleware\JWT\SimpleAuth())
         ->add(new Validation($userGetDataValidator));
@@ -23,8 +24,8 @@ $app->group('/user/data', function () use ($app) {
     // end
 
     $app->get('/avatar[/]', \Controllers\AvatarController::class . ':get')
-        ->add(new \Middleware\JWT\SimpleAuth())
-        ->add(new Validation($userGetDataValidator));
+    ->add(new \Middleware\JWT\Auth());
+        // ->add(new Validation($userGetDataValidator));
     // end
 
     $delAvaValidator = [

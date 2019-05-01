@@ -40,16 +40,42 @@ class Db
     public function Query($query, $params = [])
     {
         $res = $this->_instance->prepare($query);
+
         $res->execute($params);
         if($this->_instance->lastInsertId())
             return $this->_instance->lastInsertId();
         return $res;
     }
 
+
+    public function searchQuery($query,$params = [])
+    {
+        $res = $this->_instance->prepare($query);
+
+        $res->execute($params);
+
+        // if($this->_instance->lastInsertId())
+        //     return $this->_instance->lastInsertId();
+        return $res;
+
+    }
+
+    public function Select_($query, $params = [], $all = true)
+    {
+        $result = $this->searchQuery($query, $params);
+      
+        if ($result) {
+            if($all)
+                return $result->fetchAll();
+            return $result->fetch();
+        }
+    }
     // запрос на выборку
+    
     public function Select($query, $params = [], $all = false)
     {
         $result = $this->Query($query, $params);
+       
         if ($result) {
             if($all)
                 return $result->fetchAll();

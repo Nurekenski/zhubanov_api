@@ -6,13 +6,13 @@ use \Interop\Container\ContainerInterface as ContainerInterface;
 
 use Firebase\JWT\JWT;
 
+
+
 abstract class Controller
 {
     protected $ci;
-
     protected $request;
     protected $response;
-
 
     /**
      * Controller constructor.
@@ -77,9 +77,9 @@ abstract class Controller
         if (isset($data['password']) && !empty($data['password'])) {
             $exp_time = time() + EXP_TIME;
         } else {
-            $exp_time = time() + 60 * 60;
+            $exp_time = time() + 60*60*60;
         }
-
+        
         $payload = [
             'iat' => time(),
             'iss' => ISSUE,

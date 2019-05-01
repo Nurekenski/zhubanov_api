@@ -16,6 +16,7 @@ class Login
     public static function authExec($phone, $password)
     {
         $user = Validate::checkUserExist($phone);
+        
         if (password_verify($password, $user['password'])) {
             return $user;
         }

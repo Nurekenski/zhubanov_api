@@ -28,6 +28,7 @@ $app->group('/password', function () use ($app) {
     $app->put('[/]', \Controllers\PasswordController::class . ':update')
         ->add(new \Middleware\JWT\Auth())
         ->add(new Validation($newPassValidator));
+        
 });
 
 

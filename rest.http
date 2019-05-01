@@ -1,0 +1,645 @@
+###
+@api_v2_1 = http://project/v2
+#@api_v2_1 = http://new.loc/app/v2
+
+###
+POST {{api_v2_1}}/signup/registration HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDk0MzEzMTMsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1NTIwMjMzMTMsInVzZXJfaWQiOiIzMyIsInBob25lIjoiNzcwMDQ1NTI1MjkiLCJwYXNzd29yZCI6IiQyeSQxMCRKV3d0OXMxS3dtQTJmaXc1azdnNFd1WlYyM0NnMVJLZElSRVduaW5WVmlXcDNEem1YOUVoRyJ9.ypcExcVK3ltwSyrKyIYDrnQKotiWm5jQ3uf6dfHq38g
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="surname"
+
+yes
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+s2
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="third_name"
+
+alsdkj
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="photo"; filename="33.PNG"
+Content-Type: image/png
+
+< ./33.PNG
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+
+###
+POST {{api_v2_1}}/create_job HTTP/1.1
+Content-Type: application/json
+
+{   
+    "header": "Erlan",
+    "cost": "Erlanov",
+    "description": "Should make some little bit repairs in room",
+    "photo": "",
+    "job_direction": "Slesar",
+    "job_id": "123321",
+    "user_id": 1
+}
+###
+
+###
+GET {{api_v2_1}}/create_job/data HTTP/1.1
+Content-Type: application/json
+
+{
+    "job_id": "123321"
+}
+###
+
+
+###
+POST {{api_v2_1}}/insert_data/statistics HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTQwMjU3NTgsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1NTY2MTc3NTgsInVzZXJfaWQiOiI0IiwicGhvbmUiOiI3NzAxNzQxODcwNSIsInBhc3N3b3JkIjoiJDJ5JDEwJERveG9sSWw5OWdRVXBPZm1PNHk3RE9QMTFPV0UybFVDWjhDUkdnRHFhUU8wei5GRlYwZVIyIn0.Y7EbZwvflNmoc7plrqa_lPgxCNuQXE7gbagNwUjhg84
+
+###
+
+
+###
+POST {{api_v2_1}}/signup/get_all HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTQwMDMwMDEsImlzcyI6InRva2VuLmFjY291bnQuc3R1ZGVudCIsImV4cCI6MTU1NjU5NTAwMSwidXNlcl9pZCI6IjUxIiwicGhvbmUiOiI5NzAzMjUzNTE0OTkiLCJwYXNzd29yZCI6IjEyMzQ1NiIsInVuaXF1ZV9pZCI6IlU1YzljOTJhZDJhMmNjIn0.PgcgRUeITWmq3yTZqzBW1WLs03T2Wjx0qLOGFF6SIt4
+
+
+###
+
+###
+POST {{api_v2_1}}/signup/forgot_password HTTP/1.1
+Content-Type: application/json
+
+{
+    "iin": "970325351347",
+    "phone": "87074252290",
+    "password": "Nurbol123"
+}
+
+###
+
+
+###
+POST {{api_v2_1}}/signup/student_registration HTTP/1.1
+Content-Type: application/json
+
+{
+    "iin": "990825351346",
+    "password": "123456",
+    "unique_id": "U5cbc48cf344c3"
+}
+###
+
+
+###
+POST {{api_v2_1}}/signup/student_login HTTP/1.1
+Content-Type: application/json
+
+{
+    "iin": "970325351346",
+    "password": "970325"
+}
+###
+
+###
+POST {{api_v2_1}}/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone": "77017418705",
+    "password": "123456"
+}
+###
+
+###
+POST {{api_v2_1}}/signup/first_step_registration HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone": "77017418705"
+}
+###
+
+###
+POST {{api_v2_1}}/signup/verify_phone HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone": "77017418705",
+    "code":  34232
+}
+### 
+
+###
+POST {{api_v2_1}}/signup/set_password/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTI4NTMzMjgsImlzcyI6InRva2VuLmFjY291bnQudG1wIiwiZXhwIjoxNTUzMDY5MzI4LCJ1c2VyX2lkIjoiNCIsInBob25lIjoiNzcwMTc0MTg3MDUifQ.1s9IAa2mFiqC_R65dYfj-fd4mqCs36MGLN4mCc4brRA
+
+{
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTI4NTMzMjgsImlzcyI6InRva2VuLmFjY291bnQudG1wIiwiZXhwIjoxNTUzMDY5MzI4LCJ1c2VyX2lkIjoiNCIsInBob25lIjoiNzcwMTc0MTg3MDUifQ.1s9IAa2mFiqC_R65dYfj-fd4mqCs36MGLN4mCc4brRA",
+    "password": "123456"
+}
+###
+
+
+// teacher auth
+###
+POST {{api_v2_1}}/insert_data/all HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTI4NTM0MTcsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1NTU0NDU0MTcsInVzZXJfaWQiOiI0IiwicGhvbmUiOiI3NzAxNzQxODcwNSIsInBhc3N3b3JkIjoiJDJ5JDEwJERveG9sSWw5OWdRVXBPZm1PNHk3RE9QMTFPV0UybFVDWjhDUkdnRHFhUU8wei5GRlYwZVIyIn0.XcVjgL7P0tMijnGgg5BWvXnbabZeCuCP4rm8v6GnY8w
+
+{
+    "surname": "Bekbol" ,
+    "name": "Data ",
+    "third_name": "Data ", 
+    "date_birth": "1993-03-25",
+    "gender": "Data ",
+    "citizenship": "Data ", 
+    "nationality": "Data ",
+    "family_position": "Data ",
+    "document_type": "Data ",
+    "iin": "970325351499",
+    "nomer": "Data ",
+    "kem_vidan": "Data ",
+    "kogda_vidan": "Data ",
+    "srok_deistvie": "Data ",
+    "zagruzit_udastak": "Data ",
+    "strana": "Data ",
+    "adres_projivanie": "Data ",
+    "adres_propiski": "Data ",
+    "contact_number": "Dat  a ",
+    "type_zavedenie": "Data ",
+    "oblast_zavedenie": "Data ",
+    "raion_zavedenie": "Data ",
+    "name_zavedenie": "Data ",
+    "type_obrazovanie": "Data ",
+    "date_vidachi_obr": "1993-03-25",
+    "seria_document": "Data ",
+    "nomer_document": "Data ",
+    "uslovno_zachislen": "Data ",
+    "zagruzit_obr": "Data ",
+    "number_certificate": "Data ",
+    "seria_certificate": "Data ",
+    "date_certificate": "1993-03-25",
+    "zagruzit_certificate": "Data ",
+    "nomer_svidetelstva": "Data ",
+    "zagruzit_svidetelstva": "Data ",
+    "serpin": "Data ",
+    "deti_siroti": "Data ",
+    "invalid_pervi": "Data ",
+    "invalid_vtoroi": "Data ",
+    "invalid_sdetstva": "Data ",
+    "kvota_invalidam": "Data ",
+    "selskaya_kvota": "Data ",
+    "kvota_negrajdan": "Data ",
+    "pob_mej_olimp": "Data ",
+    "pob_resp_olimp": "Data ",
+    "znak_altin": "Data ",
+    "atestat_osobo": "Data ",
+    "pob_mej_nau": "Data ",
+    "pob_resp_nau": "Data ",
+    "pob_mej_sport": "Data ",
+    "pob_gorod_nau": "Data ",
+    "pob_gorod_olimp": "Data ",
+    "pob_obl_nau_konkurs": "Data ",
+    "pob_obl_olimp": "Data ",
+    "pob_mej_vistavki": "Data ",
+    "uroven_obuchenie": "Data ",
+    "stupen_obuchenie": "Data ",
+    "forma_obuchenie": "Data ", 
+    "language_otdelenie": "Data",
+    "faculty": "Data",
+    "specialnost": "Data ",
+    "who_registered": "Data ",
+    "data_about_who": "Data ",
+    "grand_platni": "Гранд",
+    "proverenni": "0",
+    "unique_id": "",
+    "comment":"sldkjs"
+}
+###
+
+###
+POST {{api_v2_1}}/insert_data/student HTTP/1.1
+Content-Type: application/json
+
+{
+    "surname": "Bekbol" ,
+    "name": "Data ",
+    "third_name": "Data ", 
+    "date_birth": "1993-03-25",
+    "gender": "Data ",
+    "citizenship": "Data ", 
+    "nationality": "Data ",
+    "family_position": "Data ",
+    "document_type": "Data ",
+    "iin": "990825351346",
+    "nomer": "Data ",
+    "kem_vidan": "Data ",
+    "kogda_vidan": "Data ",
+    "srok_deistvie": "Data ",
+    "zagruzit_udastak": "Data ",
+    "strana": "Data ",
+    "adres_projivanie": "Data ",
+    "adres_propiski": "Data ",
+    "contact_number": "Data ",
+    "type_zavedenie": "Data",
+    "oblast_zavedenie": "Data ",
+    "raion_zavedenie": "Data ",
+    "name_zavedenie": "Data ",
+    "type_obrazovanie": "Data ",
+    "date_vidachi_obr": "1993-03-25",
+    "seria_document": "Data ",
+    "nomer_document": "Data ",
+    "uslovno_zachislen": "Data ",
+    "zagruzit_obr": "Data ",
+    "number_certificate": "Data ",
+    "seria_certificate": "Data ",
+    "date_certificate": "1993-03-25",
+    "zagruzit_certificate": "Data ",
+    "nomer_svidetelstva": "Data ",
+    "zagruzit_svidetelstva": "Data ",
+    "serpin": "Data ",
+    "deti_siroti": "Data ",
+    "invalid_pervi": "Data ",
+    "invalid_vtoroi": "Data ",
+    "invalid_sdetstva": "Data ",
+    "kvota_invalidam": "Data ",
+    "selskaya_kvota": "Data ",
+    "kvota_negrajdan": "Data ",
+    "pob_mej_olimp": "Data ",
+    "pob_resp_olimp": "Data ",
+    "znak_altin": "Data ",
+    "atestat_osobo": "Data ",
+    "pob_mej_nau": "Data ",
+    "pob_resp_nau": "Data ",
+    "pob_mej_sport": "Data ",
+    "pob_gorod_nau": "Data ",
+    "pob_gorod_olimp": "Data ",
+    "pob_obl_nau_konkurs": "Data ",
+    "pob_obl_olimp": "Data ",
+    "pob_mej_vistavki": "Data ",
+    "uroven_obuchenie": "Data",
+    "stupen_obuchenie": "Data",
+    "forma_obuchenie": "Data", 
+    "language_otdelenie": "Data",
+    "faculty": "Data",
+    "specialnost": "Data ",
+    "who_registered": "student",
+    "data_about_who": "Data ",
+    "grand_platni": "Гранд",
+    "proverenni": "0",
+    "unique_id": "",
+    "comment":"",
+    "na_baze": "na_baze"
+}
+###
+
+
+###
+GET {{api_v2_1}}/insert_data/search_all HTTP/1.1
+Content-Type: application/json
+
+{
+    "surname": "empty",
+    "name": "Saduakasova",
+    "third_name": "empty", 
+    "date_birth": "empty",
+    "gender": "empty",
+    "citizenship": "empty",  
+    "nationality": "empty",
+    "family_position": "empty",
+    "document_type": "empty",
+    "iin": "empty",
+    "nomer": "empty",
+    "kem_vidan": "empty",
+    "kogda_vidan": "empty",
+    "srok_deistvie": "empty",
+    "zagruzit_udastak": "empty",
+    "strana": "empty",
+    "adres_projivanie": "empty",
+    "adres_propiski": "empty",
+    "contact_number": "empty",
+    "type_zavedenie": "empty",
+    "oblast_zavedenie": "empty",
+    "raion_zavedenie": "empty",
+    "name_zavedenie": "empty",
+    "type_obrazovanie": "empty",
+    "date_vidachi_obr": "empty",
+    "seria_document": "empty",
+    "nomer_document": "empty",
+    "uslovno_zachislen": "empty",
+    "zagruzit_obr": "empty",
+    "number_certificate": "empty",
+    "seria_certificate": "empty",
+    "date_certificate": "empty",
+    "zagruzit_certificate": "empty",
+    "nomer_svidetelstva": "empty",
+    "zagruzit_svidetelstva": "empty",
+    "serpin": "empty",
+    "deti_siroti": "empty",
+    "invalid_pervi": "empty",
+    "invalid_vtoroi": "empty",
+    "invalid_sdetstva": "empty",
+    "kvota_invalidam": "empty",
+    "selskaya_kvota": "empty",
+    "kvota_negrajdan": "empty",
+    "pob_mej_olimp": "empty",
+    "pob_resp_olimp": "empty",
+    "znak_altin": "empty",
+    "atestat_osobo": "empty",
+    "pob_mej_nau": "empty",
+    "pob_resp_nau": "empty",
+    "pob_mej_sport": "empty",
+    "pob_gorod_nau": "empty",
+    "pob_gorod_olimp": "empty",
+    "pob_obl_nau_konkurs": "empty",
+    "pob_obl_olimp": "empty",
+    "pob_mej_vistavki": "empty",
+    "uroven_obuchenie": "empty",
+    "stupen_obuchenie": "empty",
+    "forma_obuchenie": "empty", 
+    "language_otdelenie": "empty",
+    "faculty": "empty",
+    "specialnost": "empty",
+    "who_registered": "empty",
+    "data_about_who": "empty",
+    "grand_platni": "empty",
+    "proverenni": "empty"
+}
+###
+
+###
+POST {{api_v2_1}}/insert_data HTTP/1.1
+Content-Type: application/json
+
+{
+    "product_name": "bb",
+    "description": "second",
+    "cost": "123",
+    "ids": "1"
+}
+###
+
+
+
+
+
+###
+POST {{api_v2_1}}/insert_data/update HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTI4NTM0MTcsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1NTU0NDU0MTcsInVzZXJfaWQiOiI0IiwicGhvbmUiOiI3NzAxNzQxODcwNSIsInBhc3N3b3JkIjoiJDJ5JDEwJERveG9sSWw5OWdRVXBPZm1PNHk3RE9QMTFPV0UybFVDWjhDUkdnRHFhUU8wei5GRlYwZVIyIn0.XcVjgL7P0tMijnGgg5BWvXnbabZeCuCP4rm8v6GnY8w
+
+{ 
+    "surname": "Nurbol" ,
+    "name": "Madenov",
+    "third_name": "Madenovic", 
+    "date_birth": "1993-03-25",
+    "gender": "Data ",
+    "citizenship": "Data ", 
+    "nationality": "Data ",
+    "family_position": "Data ",
+    "document_type": "Data ",
+    "iin": "45455",
+    "nomer": "Data ",
+    "kem_vidan": "Data ",
+    "kogda_vidan": "Data ",
+    "srok_deistvie": "Data ",
+    "zagruzit_udastak": "Data ",
+    "strana": "Data ",
+    "adres_projivanie": "Data ",
+    "adres_propiski": "Data ",
+    "contact_number": "Data ",
+    "type_zavedenie": "Data",
+    "oblast_zavedenie": "Data ",
+    "raion_zavedenie": "Data ",
+    "name_zavedenie": "Data ",
+    "type_obrazovanie": "Data ",
+    "date_vidachi_obr": "1993-03-25",
+    "seria_document": "Data ",
+    "nomer_document": "Data ",
+    "uslovno_zachislen": "Data ",
+    "zagruzit_obr": "Data ",
+    "number_certificate": "Data ",
+    "seria_certificate": "Data ",
+    "date_certificate": "1993-03-25",
+    "zagruzit_certificate": "Data ",
+    "nomer_svidetelstva": "Data ",
+    "zagruzit_svidetelstva": "Data ",
+    "serpin": "Data ",
+    "deti_siroti": "Data ",
+    "invalid_pervi": "Data ",
+    "invalid_vtoroi": "Data ",
+    "invalid_sdetstva": "Data ",
+    "kvota_invalidam": "Data ",
+    "selskaya_kvota": "Data ",
+    "kvota_negrajdan": "Data ",
+    "pob_mej_olimp": "Data ",
+    "pob_resp_olimp": "Data ",
+    "znak_altin": "Data ",
+    "atestat_osobo": "Data ",
+    "pob_mej_nau": "Data ",
+    "pob_resp_nau": "Data ",
+    "pob_mej_sport": "Data ",
+    "pob_gorod_nau": "Data ",
+    "pob_gorod_olimp": "Data ",
+    "pob_obl_nau_konkurs": "Data ",
+    "pob_obl_olimp": "Data ",
+    "pob_mej_vistavki": "Data ",
+    "uroven_obuchenie": "Data",
+    "stupen_obuchenie": "Data",
+    "forma_obuchenie": "Data", 
+    "language_otdelenie": "Data",
+    "faculty": "Data",
+    "specialnost": "Data ",
+    "who_registered": "student",
+    "data_about_who": "Data ",
+    "grand_platni": "Гранд",
+    "proverenni": "0",
+    "unique_id": "U5c8ec4453b158"
+}
+###
+
+
+
+
+
+###
+GET {{api_v2_1}}/insert_data/getdata HTTP/1.1
+Content-Type: application/json
+
+{
+    "ids": "1"
+}
+###
+
+###
+GET {{api_v2_1}}/insert_data/search HTTP/1.1
+Content-Type: application/json
+
+{
+    "product_name": "f"
+}
+###
+
+
+
+###
+POST {{api_v2_1}}/insert_data/get_data HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 
+###
+
+###
+GET {{api_v2_1}}/user/data/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDIyNzgwNTUsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1NDQ4NzAwNTUsInVzZXJfaWQiOiIzMSIsImVtYWlsIjoibnVyYm9sLm0uMjAxN0BtYWlsLnJ1IiwicGFzc3dvcmQiOiIkMnkkMTAkN3pxWXA4bFwvbEV4VjlzZTJ1T2ZWNnVQa2VXOS5oN0QyWkZseXFROXBWWWJyRFwvMTBFQmJVbSJ9.vXXmAeFYer_GK3gaVO3VIQo5kjUpLLg4VWmkgaFXzOU
+
+{
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDIyNzgwNTUsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1NDQ4NzAwNTUsInVzZXJfaWQiOiIzMSIsImVtYWlsIjoibnVyYm9sLm0uMjAxN0BtYWlsLnJ1IiwicGFzc3dvcmQiOiIkMnkkMTAkN3pxWXA4bFwvbEV4VjlzZTJ1T2ZWNnVQa2VXOS5oN0QyWkZseXFROXBWWWJyRFwvMTBFQmJVbSJ9.vXXmAeFYer_GK3gaVO3VIQo5kjUpLLg4VWmkgaFXzOU"
+}
+
+###
+# PUT {{api_v2_1}}/user/data/ HTTP/1.1
+# Content-Type: application/json
+# Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1Mzc1MTYxNjgsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1NDAxMDgxNjgsInVzZXJfaWQiOiIyIiwicGhvbmUiOiI3Nzc3MzY5NzQxNyIsInBhc3N3b3JkIjoiJDJ5JDEwJGwyTnE4Yk1iTlJiVU01Qndad3lMaGViOTg2blVVQ1wvenJjM0cydGdReDd3ek5tR0NjWjhkaSJ9.EoN4_mLrgRikG316OSOw6FHOjF4SHXT7lN31ubzxu20
+
+# {
+#     "gender": "male",
+#     "name": "Ismail",
+#     "region": "Актобе",
+#     "city": "Юнис Сити"
+# }
+
+###
+
+###
+POST {{api_v2_1}}/password/forgot HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone": "77074252290"
+}
+###
+
+
+
+###
+POST {{api_v2_1}}/insert_data/avatar_update
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTU4NDMzMjcsImlzcyI6InRva2VuLmFjY291bnQuc3R1ZGVudCIsImV4cCI6MTU1ODQzNTMyNywidXNlcl9pZCI6IjgzIiwicGhvbmUiOiI5OTA4MjUzNTEzNDYiLCJwYXNzd29yZCI6IjEyMzQ1NiIsInVuaXF1ZV9pZCI6IlU1Y2JjNDhjZjM0NGMzIn0.r1WUDt2SmifyAunIWUXjJiZORZtzM59Npka74Ghw-Js
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="first"; filename="33.png"
+Content-Type: image/png
+
+< ./33.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+ 
+###
+
+
+###
+POST {{api_v2_1}}/insert_data/avatar
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTU4NDMzMjcsImlzcyI6InRva2VuLmFjY291bnQuc3R1ZGVudCIsImV4cCI6MTU1ODQzNTMyNywidXNlcl9pZCI6IjgzIiwicGhvbmUiOiI5OTA4MjUzNTEzNDYiLCJwYXNzd29yZCI6IjEyMzQ1NiIsInVuaXF1ZV9pZCI6IlU1Y2JjNDhjZjM0NGMzIn0.r1WUDt2SmifyAunIWUXjJiZORZtzM59Npka74Ghw-Js
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="first"; filename="33.png"
+Content-Type: image/png
+
+< ./33.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="second"; filename="33.png"
+Content-Type: image/png
+
+< ./33.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="third"; filename="22.png"
+Content-Type: image/png
+
+< ./22.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="fourth"; filename="22.png"
+Content-Type: image/png
+
+< ./33.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+###
+
+
+GET {{api_v2_1}}/insert_data/avatar/ HTTP/1.1
+Content-Type: application/json
+# Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTMzNDczMDAsImlzcyI6InRva2VuLmFjY291bnQuc3R1ZGVudCIsImV4cCI6MTU1NTkzOTMwMCwidXNlcl9pZCI6IjExIiwicGhvbmUiOiI5NzAzMjUzNTEzNDciLCJwYXNzd29yZCI6IjEyMzQ1NiIsInVuaXF1ZV9pZCI6IlU1YzkwYTAxOGNlM2ZmIn0.CWEGWnek9FnBdHulZo5lyMggXGOE_6CGhidBbay0h9M
+
+{
+    "unique_id": "U5cbb6b7774631"
+}
+### one month
+
+DELETE {{api_v2_1}}/user/data/avatar/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1Mzc1MTYxNjgsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1NDAxMDgxNjgsInVzZXJfaWQiOiIyIiwicGhvbmUiOiI3Nzc3MzY5NzQxNyIsInBhc3N3b3JkIjoiJDJ5JDEwJGwyTnE4Yk1iTlJiVU01Qndad3lMaGViOTg2blVVQ1wvenJjM0cydGdReDd3ek5tR0NjWjhkaSJ9.EoN4_mLrgRikG316OSOw6FHOjF4SHXT7lN31ubzxu20
+
+{
+    "photo_id": 211
+} 
+###
+
+###
+
+POST {{api_v2_1}}/password/forgot/verify-phone/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone": "77472995982",
+    "code": 44505
+}
+###
+
+PUT {{api_v2_1}}/password/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1Mzc1MzM2MjMsImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1NDAxMjU2MjMsInVzZXJfaWQiOiI1NCIsInBob25lIjoiNzc3MTIzMTIzMTIzIiwicGFzc3dvcmQiOiIkMnkkMTAkdzVpNUxcL3hZRUZCaUQ2enpCLk4uZ3VNQ2FGUzl5WHF2clB3NENvdTVEb0RheUl2eklhODJHIn0.HIq9o8Q9IpIqXk0Y6WalnUyzngYrLX32Af4OHet8vyk
+
+{
+    "type": "change",
+    "old_password": "123456",
+    "new_password": "123123"
+}
+###
+
+POST {{api_v2_1}}/link/network/ HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1Mzc1MzA2NTksImlzcyI6ImFjY291bnQub3RhdS5vcmciLCJleHAiOjE1NDAxMjI2NTksInVzZXJfaWQiOiIyIiwicGhvbmUiOiI3Nzc3MzY5NzQxNyIsInBhc3N3b3JkIjoiJDJ5JDEwJEJyQTVKYkFoaGFTN09icXZidlFVVi45dEFWdVN0WFJSQmk4bHJDcUh2NmNyVUVabkRFUmxLIn0.uk6YLIs9HfojRKlNer070--OeB3CGfh3jfgsMwyHPsU
+
+###
+
+POST {{api_v2_1}}/encode/sayrus HTTP/1.1
+Content-Type: application/json
+
+{
+    "jwt_secret": "asdasdasd",
+    "payload": {
+        "user_id": 2,
+        "phone": "77773697417"
+    }
+}

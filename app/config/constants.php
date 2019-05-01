@@ -17,7 +17,7 @@ elseif(APP_ENV == 'stage') {
 
 } else {
     define('MATRIX_SERVER', 'https://api.msg.otau.org');
-    define('ACCOUNT_SERVER', 'http://new.loc');
+    define('ACCOUNT_SERVER', 'http://192.168.8.100');
 }
 
 

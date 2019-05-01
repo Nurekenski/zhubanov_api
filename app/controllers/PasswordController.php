@@ -30,6 +30,7 @@ class PasswordController extends Controller
         );
     }
 
+    
     public function verifyCode($request, $response, $args)
     {
         $phone = Validate::standartizePhone($this->getParam('phone'));

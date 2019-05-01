@@ -32,7 +32,8 @@ class Logging
     public function db($e)
     {
         $this->_instance->pushHandler(new StreamHandler(ROOT . '/../logs/database.log'));
-        $this->_instance->error($e->getMessage(),
+        $this->_instance->error(
+            $e->getMessage(),
             [
                 'file' => $e->getFile(),
                 'code' => $e->getCode(),

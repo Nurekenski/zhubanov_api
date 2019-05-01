@@ -7,7 +7,7 @@ use Lib\Logging;
 use Lib\Db;
 
 
-class Auth
+class CheckForData
 {
     /**
      * @param $request
@@ -20,12 +20,13 @@ class Auth
     {
         $auth = $request->getHeader("Authorization");
         
-        // try {
-            if (preg_match('/Bearer\s(\S+)/', $auth[0], $matches)) {
+        try {
+            if(preg_match('/Bearer\s(\S+)/', $auth[0], $matches)) {
                 $token = $matches[1];
                 $payload = JWT::decode($token, JWT_SECRET, ['HS256']);
 
                 if (is_object($payload) && $payload->iss == ISSUE) {
+                    
                     $user = Db::getInstance()->Select('SELECT id FROM users WHERE id = :id AND phone = :phone AND password = :password',
                         [
                             'id' => $payload->user_id,
@@ -48,17 +49,17 @@ class Auth
                 $response->getBody()->write(json_encode(['errcode' => NOT_AUTHORIZED, 'error' => "Not authorized"], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
                 return $response->withStatus(UNAUTHORIZED);
             }
-        // } catch (\PDOException $e) {
-        //     Logging::getInstance()->db($e);
+        } catch (\PDOException $e) {
+            Logging::getInstance()->db($e);
 
-        //     $response->getBody()->write(json_encode(['errcode' => UNEXPECTED_ERROR, 'error' => "Server database error"], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+            $response->getBody()->write(json_encode(['errcode' => UNEXPECTED_ERROR, 'error' => "Server database error"], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 
-        //     return $response->withStatus(INTERNAL_SERVER_ERROR);
-        // } catch (\Exception $e) {
-        //     Logging::getInstance()->JWTlog($e, $auth);
+            return $response->withStatus(INTERNAL_SERVER_ERROR);
+        } catch (\Exception $e) {
+            Logging::getInstance()->JWTlog($e, $auth);
 
-        //     $response->getBody()->write(json_encode(['errcode' => NOT_AUTHORIZED, 'error' => "Not authorized"], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-        //     return $response->withStatus(UNAUTHORIZED);
-        // }
+            $response->getBody()->write(json_encode(['errcode' => NOT_AUTHORIZED, 'error' => "Not authorized"], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+            return $response->withStatus(UNAUTHORIZED);
+        }
     }
 }

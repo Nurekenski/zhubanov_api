@@ -15,6 +15,7 @@ class Network
                     LEFT JOIN registration_data ON registration_data.user_id = users.id
                     WHERE phone = :phone
                     ";
+                    
         $user = Db::getInstance()->Select($sql, [
             'phone' => $phone
         ]);

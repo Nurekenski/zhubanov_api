@@ -20,18 +20,18 @@ class TempAuth
     {
         $auth = $request->getHeader("Authorization");
 
-        try {
+        // try {
             if (preg_match('/Bearer\s(\S+)/', $auth[0], $matches)) {
                 $token = $matches[1];
                 $payload = JWT::decode($token, JWT_SECRET, ['HS256']);
-
+               
                 if (is_object($payload) && $payload->iss == 'token.account.tmp') {
-                    $user = Db::getInstance()->Select('SELECT id FROM users WHERE id = :id AND phone = :phone',
-                                            [
-                                                'id' => $payload->user_id,
+                    $user = Db::getInstance()->Select('SELECT id,phone FROM users WHERE id = :id AND phone = :phone',
+                                            [   'id' => $payload->user_id,
                                                 'phone' => $payload->phone
                                             ]
                                         );
+                   
                     if ($user) {
                         $request = $request->withAttribute('temp_auth', $payload);
                         return $next($request, $response);
@@ -47,17 +47,18 @@ class TempAuth
                 $response->getBody()->write(json_encode(['errcode' => NOT_AUTHORIZED, 'error' => "Not authorized"], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
                 return $response->withStatus(UNAUTHORIZED);
             }
-        } catch (\PDOException $e) {
-            Logging::getInstance()->db($e);
+        // }
+        // } catch (\PDOException $e) {
+        //     Logging::getInstance()->db($e);
+        //     $response->getBody()->write(json_encode(['errcode' => UNEXPECTED_ERROR, 'error' => "Server database error"], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+            
+        //     return $response->withStatus(INTERNAL_SERVER_ERROR);
+        // } 
+        // catch (\Exception $e) {
+        //     Logging::getInstance()->JWTlog($e, $auth);
 
-            $response->getBody()->write(json_encode(['errcode' => UNEXPECTED_ERROR, 'error' => "Server database error"], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-
-            return $response->withStatus(INTERNAL_SERVER_ERROR);
-        } catch (\Exception $e) {
-            Logging::getInstance()->JWTlog($e, $auth);
-
-            $response->getBody()->write(json_encode(['errcode' => NOT_AUTHORIZED, 'error' => "Not authorized"], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-            return $response->withStatus(UNAUTHORIZED);
-        }
+        //     $response->getBody()->write(json_encode(['errcode' => NOT_AUTHORIZED, 'error' => "Not authorized"], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+        //     return $response->withStatus(UNAUTHORIZED);
+        // }
     }
 }

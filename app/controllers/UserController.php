@@ -16,8 +16,9 @@ class UserController extends Controller
     public function get($request, $response, $args = [])
     {
         $is_auth = $request->getAttribute('is_auth');
+ 
+        $userData = User::getUserData($is_auth->user_id, $is_auth->email, $this->createToken($is_auth->user_id));
 
-        $userData = User::getUserData($is_auth->user_id, $is_auth->phone, $this->createToken($is_auth->user_id));
 
         return $userData ? $this->success(OK, $userData)
             : $this->error(UNAUTHORIZED, NOT_AUTHORIZED, "Not authorized");

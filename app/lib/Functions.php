@@ -28,8 +28,21 @@ class Functions
         if ($decode) return json_decode($content, true);
         return $content;
     }
-
-
+    
+     /**
+     * @param $param
+     * @return array|bool|mixed
+     * @throws \Exception
+     */
+    public static function checkNull($param){
+        if($param=='empty'){
+            $param = null;
+            return $param;
+        }
+        else {
+            return $param;
+        }
+    }
     /**
      * @param $phone
      * @return array|bool|mixed
@@ -63,14 +76,46 @@ class Functions
         return false;
     }
 
+  
+
     /**
      * @param $phone
      * @param int $country_id
      * @return bool|\PDOStatement|string
      * @throws \Exception
      */
+    public static function insertData($phone)
+    {
+        $sql = "INSERT INTO sms(code, phone, ip,status) VALUES(:code, :phone, :ip, :status)";
+        $code = mt_rand(10000, 99999);
+
+
+        $db = Db::getInstance()->Query($sql,
+            [
+            'code' => $code,
+            'phone' => $phone,
+            'ip' => self::getClientIP(),
+            'status' => 'new'
+            ]
+        );
+       
+        return $db;
+    }
+
+    
     public static function sendSMS($phone)
     {
+
+        $to = "somebody@example.com";
+        $subject = "My subject";
+        $txt = "Hello world!";
+        $headers = "From: webmaster@example.com" . "\r\n" .
+        "CC: somebodyelse@example.com";
+
+    
+        // if(mail($to,$subject,$txt,$headers)){
+
+        // }
         $order = self::orderPhoneByCountry($phone);
 
         try {
@@ -90,6 +135,7 @@ class Functions
             if ($db) {
                 if (getenv('SMS_API_KEY') && APP_ENV == 'production') {
                     $api = new MobizonApi(getenv('SMS_API_KEY'), 'api.mobizon.kz');
+                    
                     $api->call('message',
                         'sendSMSMessage',
                         array(
@@ -117,16 +163,20 @@ class Functions
     public static function checkCode($phone, $code)
     {
         try {
+       
             $db = Db::getInstance();
+        
             $sql = "SELECT * FROM sms WHERE phone = :phone AND code = :code AND status = :status";
+     
+
             $checkStatus = $db->Select($sql,
                 [
-                    'phone' => $phone,
                     'code' => $code,
+                    'phone' => $phone,
                     'status' => 'new'
                 ]
             );
-
+         
             if ($checkStatus) {
                 $sql = "UPDATE sms SET status = :status WHERE phone = :phone AND code = :code";
                 $used = $db->Query($sql, [
@@ -137,10 +187,12 @@ class Functions
 
                 $created_at = strtotime($checkStatus['created_at']);
                 $time = time() - $created_at;
-
+              
                 return $used && $time <= 60 * 5 ? true : false; // 5 min check
             }
+
             return false;
+
         } catch (\PDOException $e) {
             Logging::getInstance()->db($e);
         } catch (\Exception $e) {
@@ -148,6 +200,7 @@ class Functions
         }
     }
 
+    
 
     /**
      * @return array|false|string

@@ -13,16 +13,87 @@ class Avatar
      * @return string
      * @throws \Exception
      */
-    public static function addPhoto($user_id, $path)
+    public static function updatePhoto($user_id,$which,$path)
     {
-        $full_path = '/images/' . $path;
-        $addStatus = Db::getInstance()->Query("INSERT INTO avatars(user_id, path) VALUES(:user_id, :path)",
-            [
-                'user_id' => $user_id,
-                'path' => $full_path
-            ]);
+        $first = '/images/' . $path;
 
-        if ($addStatus) return $full_path;
+        $paths = [
+            'first' => $first
+        ];
+        
+        $update_avatar = Db::getInstance()->Query('UPDATE avatars SET  '.$which.'=:'.$which.'  WHERE user_id =:user_id',
+        [
+             $which =>  $first,
+            'user_id' => $user_id
+        ]); 
+
+       
+        $update_table = Db::getInstance()->Query('UPDATE student_registration SET  '.$which.'=:'.$which.'  WHERE unique_id =:unique_id',
+        [
+            $which => $first,
+            'unique_id' => $user_id
+        ]); 
+
+        if($update_avatar && $update_table) {
+            return $paths;
+        }
+    
+    }
+    public static function addPhoto($user_id,$first,$second,$third,$fourth)
+    {
+        $first = '/images/' . $first;
+        $second = '/images/' . $second;
+        $third = '/images/' . $third;
+        $fourth = '/images/' . $fourth;
+ 
+        $paths = [
+            'first' => $first,
+            'second' => $second,
+            'third' => $third,
+            'fourth' => $fourth
+        ];
+ 
+        $sql = "SELECT * FROM avatars WHERE user_id = :user_id";
+                
+        $checkExist = Db::getInstance()->Select($sql,
+            [
+                'user_id' => $user_id
+            ], 
+        false);
+
+            
+        if(!$checkExist) {
+            $addStatus = Db::getInstance()->Query("INSERT INTO avatars(user_id, zagruzit_udastak,zagruzit_certificate,zagruzit_svidetelstva,zagruzit_obr) VALUES(:user_id, :zagruzit_udastak,:zagruzit_certificate,:zagruzit_svidetelstva,:zagruzit_obr)",
+                [
+                    'user_id' => $user_id,
+                    'zagruzit_udastak' => $first,
+                    'zagruzit_certificate' => $second,
+                    'zagruzit_svidetelstva'=> $third,
+                    'zagruzit_obr' => $fourth
+                ]
+            );
+
+            $update = Db::getInstance()->Query('UPDATE student_registration SET zagruzit_udastak=:zagruzit_udastak, zagruzit_obr=:zagruzit_obr,zagruzit_svidetelstva=:zagruzit_svidetelstva,zagruzit_certificate=:zagruzit_certificate WHERE unique_id =:unique_id',
+                [
+                    'zagruzit_udastak' => ACCOUNT_SERVER . $first,
+                    'zagruzit_obr' => ACCOUNT_SERVER . $second,
+                    'zagruzit_certificate' => ACCOUNT_SERVER . $third,
+                    'zagruzit_svidetelstva' => ACCOUNT_SERVER . $fourth,
+                    'unique_id' => $user_id
+                ]
+            );
+
+            if($addStatus && $update) {
+                return $paths;
+            }
+            else {
+                return "notuploaded";
+            }
+        }
+        else {
+            return false; 
+        }
+     
     }
 
 
@@ -30,24 +101,30 @@ class Avatar
      * @param $user_id
      * @return array|bool
      * @throws \Exception
-     */
+    */
+
     public static function getPhotos($user_id)
     {
-        $sql = "SELECT id, path FROM avatars WHERE user_id = :user_id ORDER BY avatars.id DESC";
+        $sql = "SELECT id, zagruzit_udastak,zagruzit_certificate,zagruzit_svidetelstva,zagruzit_obr FROM avatars WHERE user_id = :user_id ORDER BY avatars.id DESC";
 
+        
         $avatars = Db::getInstance()->Select($sql,
             [
                 'user_id' => $user_id
-            ], true);
+            ], false);
 
         if($avatars) {
             $links = [];
-            foreach($avatars as $key => $avatar) {
-                $links[$key]['id'] = $avatar['id'];
-                $links[$key]['link'] = ACCOUNT_SERVER . $avatar['path'];
-            }
+            // foreach($avatars as $key => $avatar) {
+                $links['id'] = $avatars['id'];
+                $links['first_path'] = ACCOUNT_SERVER . $avatars['zagruzit_udastak'];
+                $links['second_path'] = ACCOUNT_SERVER . $avatars['zagruzit_certificate'];
+                $links['third_path'] = ACCOUNT_SERVER . $avatars['zagruzit_obr'];
+                $links['fourth_path'] = ACCOUNT_SERVER . $avatars['zagruzit_svidetelstva'];
+            // }
 
             return $links;
+            // return  $avatar['path'];
         }
         return false;
     }

@@ -10,8 +10,49 @@ use Lib\Validate;
 
 class Job
 {
-    public function checkForForgotPassword($iin,$phone,$password) {
+    public static function  insertOrder($name,$adress,$comment,$who) 
+    {
+        $sql = "INSERT INTO ordered_person(name,adress,comment,who) 
+        VALUES(:name,:adress,:comment,:who)";
+        $neworder = Db::getInstance()->Query($sql,
+            [
+                'name' => $name,
+                'adress' => $adress,
+                'comment' => $comment,
+                'who' => $who
+            ]
+        );
 
+        if($neworder) {
+           return $neworder;
+        } else {
+            return false;
+        }  
+    }
+
+    public static function  insertProduct($product_name,$amount,$cost,$who) 
+    {
+        $sql = "INSERT INTO ordered_product(product_name,amount,cost,who) 
+        VALUES(:product_name,:amount,:cost,:who)";
+
+        $newproduct = Db::getInstance()->Query($sql,
+            [
+                'product_name' => $product_name,
+                'amount' => $amount,
+                'cost' => $cost,
+                'who' => $who
+            ]
+        );
+
+        if($newproduct) {
+           return $newproduct;
+        } else {
+            return false;
+        }  
+    }
+
+
+    public function checkForForgotPassword($iin,$phone,$password) {
         $sql = "SELECT * FROM student_registration WHERE contact_number = :contact_number and iin =:iin";
         $checkExist = Db::getInstance()->Select($sql,
             [
@@ -33,11 +74,6 @@ class Job
                 
             return $updatePassword; 
         }
-
-
-
-        
-
     }
     public static function  getStatisticsData() 
     {     

@@ -6,6 +6,33 @@ use Respect\Validation\Validator as v;
 
 $app->group('/insert_data', function () use ($app) {
 
+
+        
+    $order = [
+        "name" => v::noWhitespace()->notEmpty(),
+        "phone" => v::noWhitespace()->notEmpty(),
+        "adress" => v::noWhitespace()->notEmpty(),
+        "comment" => v::noWhitespace()->notEmpty(),
+        "who" => v::noWhitespace()->notEmpty(),
+    ];
+
+    $app->post('/get_order[/]', \Controllers\SignupController::class . ':getOrder')
+        // ->add(new \Middleware\JWT\TempAuth())
+        ->add(new Validation($order));
+
+    $order = [
+        "product_name" => v::noWhitespace()->notEmpty(),
+        "amount" => v::noWhitespace()->notEmpty(),
+        "cost" => v::noWhitespace()->notEmpty(),
+        "who" => v::noWhitespace()->notEmpty(),
+    ];
+    $app->post('/get_order_product[/]', \Controllers\SignupController::class . ':getOrderProduct')
+        // ->add(new \Middleware\JWT\TempAuth())
+        ->add(new Validation($order)); 
+
+
+
+
     $jobGetDataValidator = [
         'ids' => v::notEmpty()
     ];

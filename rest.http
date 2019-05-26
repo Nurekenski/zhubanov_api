@@ -34,6 +34,33 @@ Content-Type: image/png
 
 
 ###
+POST {{api_v2_1}}/insert_data/get_order HTTP/1.1
+Content-Type: application/json
+
+{   
+    "name": "Ерик",
+    "phone": "87074252290",
+    "adress": "Rabochi",
+    "comment": "Uige",
+    "who": "483"
+}
+###
+
+###
+POST {{api_v2_1}}/insert_data/get_order_product HTTP/1.1
+Content-Type: application/json
+
+{   
+    "product_name": "Ерик",
+    "amount": "5",
+    "cost": "Rabochi",
+    "who": "483"
+}
+###
+
+
+
+###
 POST {{api_v2_1}}/create_job HTTP/1.1
 Content-Type: application/json
 

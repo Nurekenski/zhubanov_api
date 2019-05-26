@@ -16,8 +16,9 @@ return [
     'db_name' => 'x5ccvtlbghqbj0d5',
     'db_user' => 'vrb92ie5xi4qhz6s',
     'db_password' => 'huoot8y78297oafx'
-    //     'db_host' => 'localhost', //mysql_db
-//     'db_name' => 'data',
-//     'db_user' => 'root',
-//     'db_password' => ''
+    
+    // 'db_host' => 'localhost', //mysql_db
+    // 'db_name' => 'data',
+    // 'db_user' => 'root',
+    // 'db_password' => ''
 ];

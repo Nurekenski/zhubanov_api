@@ -16,8 +16,44 @@ use Lib\Functions;
 class SignupController extends Controller
 {
  
+    public function getOrder($request, $response, $args = [])
+    {
+        $name = $this->getParam('name');
+        $adress = $this->getParam('adress');
+        $comment = $this->getParam('comment');
+        $who = $this->getParam('who');
+
+
+        $insertOrder = Job::insertOrder($name,$adress,$comment,$who);
+        
+        if ($insertOrder){
+            $this->success(OK, ['message' => 'Successfully inserted']);   
+        }
+        else {
+            return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");
+        }
+    }
+
+    public function getOrderProduct($request, $response, $args = [])
+    {
+        $product_name = $this->getParam('product_name');
+        $amount = $this->getParam('amount');
+        $cost = $this->getParam('cost');
+        $who = $this->getParam('who');
+
+
+        $insertOrder = Job::insertProduct($product_name,$amount,$cost,$who);
+        
+        if ($insertOrder){
+            $this->success(OK, ['message' => 'Successfully inserted']);   
+        }
+        else {
+            return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");
+        }
+    }
+
+
     public function forgotPassword($request, $response, $args = [])
-    
     {
 
         $iin = $this->getParam('iin');

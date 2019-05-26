@@ -7,6 +7,8 @@ use Respect\Validation\Validator as v;
 $app->group('/signup', function () use ($app) {
 
 
+
+
     $forgotPassword = [
         "iin" => v::noWhitespace()->notEmpty()->length(12, 12),
         "phone" => v::noWhitespace()->notEmpty(),

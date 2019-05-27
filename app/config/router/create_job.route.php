@@ -9,11 +9,11 @@ $app->group('/insert_data', function () use ($app) {
 
         
     $order = [
-        "name" => v::noWhitespace()->notEmpty(),
-        "phone" => v::noWhitespace()->notEmpty(),
-        "adress" => v::noWhitespace()->notEmpty(),
-        "comment" => v::noWhitespace()->notEmpty(),
-        "who" => v::noWhitespace()->notEmpty(),
+        "name" => v::notEmpty(),
+        "phone" => v::notEmpty(),
+        "adress" => v::notEmpty(),
+        "comment" => v::notEmpty(),
+        "who" => v::notEmpty(),
     ];
 
     $app->post('/get_order[/]', \Controllers\SignupController::class . ':getOrder')

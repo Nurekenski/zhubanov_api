@@ -25,9 +25,8 @@ class SignupController extends Controller
 
 
         $insertOrder = Job::insertOrder($name,$adress,$comment,$who);
-        
         if ($insertOrder){
-            $this->success(OK, ['message' => 'Successfully inserted']);   
+            $this->success(OK, ['message' => 'Successfully inserted', 'id' => $insertOrder]);   
         }
         else {
             return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");

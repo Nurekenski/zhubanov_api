@@ -42,7 +42,7 @@ Content-Type: application/json
     "phone": "87074252290",
     "adress": "Rabochi",
     "comment": "Uige",
-    "who": "483"
+    "who": "444"
 }
 ###
 
@@ -51,10 +51,10 @@ POST {{api_v2_1}}/insert_data/get_order_product HTTP/1.1
 Content-Type: application/json
 
 {   
-    "product_name": "Ерик",
-    "amount": "5",
+    "product_name": "Govyadina",
+    "amount": "10kg",
     "cost": "Rabochi",
-    "who": "483"
+    "who": "W5ceab5eac989f"
 }
 ###
 

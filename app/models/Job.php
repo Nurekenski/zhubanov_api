@@ -14,17 +14,21 @@ class Job
     {
         $sql = "INSERT INTO ordered_person(name,adress,comment,who) 
         VALUES(:name,:adress,:comment,:who)";
+
+        $unique_id = uniqid("W");
         $neworder = Db::getInstance()->Query($sql,
             [
                 'name' => $name,
                 'adress' => $adress,
                 'comment' => $comment,
-                'who' => $who
+                'who' => $unique_id
             ]
         );
 
+        
+
         if($neworder) {
-           return $neworder;
+           return $unique_id;
         } else {
             return false;
         }  

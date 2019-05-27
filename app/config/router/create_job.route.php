@@ -21,10 +21,10 @@ $app->group('/insert_data', function () use ($app) {
         ->add(new Validation($order));
 
     $order = [
-        "product_name" => v::noWhitespace()->notEmpty(),
-        "amount" => v::noWhitespace()->notEmpty(),
-        "cost" => v::noWhitespace()->notEmpty(),
-        "who" => v::noWhitespace()->notEmpty(),
+        "product_name" => v::notEmpty(),
+        "amount" => v::notEmpty(),
+        "cost" => v::notEmpty(),
+        "who" => v::notEmpty(),
     ];
     $app->post('/get_order_product[/]', \Controllers\SignupController::class . ':getOrderProduct')
         // ->add(new \Middleware\JWT\TempAuth())

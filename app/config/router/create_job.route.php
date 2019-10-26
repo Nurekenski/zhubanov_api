@@ -6,8 +6,17 @@ use Respect\Validation\Validator as v;
 
 $app->group('/insert_data', function () use ($app) {
 
+    $app->get('/getlatinwords[/]', \Controllers\SignupController::class . ':getLatin');
 
-        
+    $app->post('/insert[/]', \Controllers\SignupController::class . ':insertLatinData');
+    // ->add(new \Middleware\JWT\TempAuth())
+    // ->add(new Validation($order));
+
+    $app->post('/all_orders[/]', \Controllers\SignupController::class . ':getAllOrder');
+        // ->add(new \Middleware\JWT\TempAuth())
+        // ->add(new Validation($order));
+
+
     $order = [
         "name" => v::notEmpty(),
         "phone" => v::notEmpty(),
@@ -19,6 +28,8 @@ $app->group('/insert_data', function () use ($app) {
     $app->post('/get_order[/]', \Controllers\SignupController::class . ':getOrder')
         // ->add(new \Middleware\JWT\TempAuth())
         ->add(new Validation($order));
+
+
 
     $order = [
         "product_name" => v::notEmpty(),

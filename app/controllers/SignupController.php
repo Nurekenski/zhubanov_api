@@ -15,7 +15,34 @@ use Lib\Functions;
 
 class SignupController extends Controller
 {
- 
+    
+    public function insertLatinData($request, $response, $args = [])
+    {
+        $country = $this->getParam('country');
+        $name = $this->getParam('name');
+        $point = $this->getParam('point');
+       
+        $insertLatin = Job::insertLatinData($country,$name,$point);
+
+        if ($insertLatin){
+            $this->success(OK, ['message' => 'Successfully inserted', 'id' => $insertLatin]);   
+        }
+        else {
+            return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");
+        }
+    }
+    public function getLatin($request, $response, $args = [])
+    {
+        $allwords = Job::getAllWords();
+
+        return $allwords;
+    }
+    public function getAllOrder($request, $response, $args = [])
+    {
+        $allorder =  Job::getAllOrder();
+        
+        return $allorder;
+    }
     public function getOrder($request, $response, $args = [])
     {
         $name = $this->getParam('name');

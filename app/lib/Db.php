@@ -72,7 +72,7 @@ class Db
     }
     // запрос на выборку
     
-    public function Select($query, $params = [], $all = false)
+    public function Select($query, $params = [],$all)
     {
         $result = $this->Query($query, $params);
        

@@ -10,6 +10,67 @@ use Lib\Validate;
 
 class Job
 {
+    public static function  insertLatinData($country,$name,$point) 
+    { 
+        $sql = "INSERT INTO information(country,name,point,unique_id) 
+        VALUES(:country,:name,:point,:unique_id)";
+
+        $unique_id = uniqid("U");
+        $neworder = Db::getInstance()->Query($sql,
+            [
+                'country' => $country,
+                'name' => $name,
+                'point' => $point,
+                'unique_id' => $unique_id
+            ]
+        );
+        if($neworder) {
+           return $unique_id;
+        } else {
+            return false;
+        }  
+    }
+
+
+
+    public static function  getAllWords() 
+    { 
+        $sql = "SELECT * FROM slovar";
+        $words = Db::getInstance()->Select_($sql,
+            [
+               
+            ], 
+        true);
+        
+        $array = [ 
+        ];
+
+        $x = 0;
+        $y = 0;
+        $p = 10;
+        while($y<10) {
+            $array["word_".$y] = array();
+            while($x<$p) {
+                $array["word_".$y][]=$words[$x];
+                $x++;
+            }
+            $p=$p+10;
+            $y++;
+        }  
+        return json_encode($array,JSON_UNESCAPED_UNICODE);
+    }
+    public static function  getAllOrder() 
+    { 
+        $sql = "SELECT ordered_person.who,ordered_person.name,ordered_person.adress,ordered_person.comment,
+        product_name,amount,cost FROM ordered_person
+        INNER JOIN ordered_product ON ordered_product.who = ordered_person.who WHERE ordered_product.who =:who";
+        
+        $user = Db::getInstance()->Select($sql, [
+      
+        ]);
+        return $user;
+    }
+    
     public static function  insertOrder($name,$adress,$comment,$who) 
     {
         $sql = "INSERT INTO ordered_person(name,adress,comment,who) 

@@ -34,6 +34,14 @@ Content-Type: image/png
 
 
 ###
+POST {{api_v2_1}}/insert_data/all_orders HTTP/1.1
+Content-Type: application/json
+
+{   
+}
+###
+
+###
 POST {{api_v2_1}}/insert_data/get_order HTTP/1.1
 Content-Type: application/json
 
@@ -514,6 +522,27 @@ Content-Type: application/json
 
 {
     "product_name": "f"
+}
+###
+
+###
+POST {{api_v2_1}}/insert_data/insert HTTP/1.1
+Content-Type: application/json
+
+{
+    "country": "Almaty",
+    "name": "Nurbol",
+    "point": ""
+}
+###
+
+
+###
+GET {{api_v2_1}}/insert_data/getlatinwords HTTP/1.1
+Content-Type: application/json
+
+{
+  
 }
 ###
 

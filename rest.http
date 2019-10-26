@@ -546,8 +546,6 @@ Content-Type: application/json
 }
 ###
 
-
-
 ###
 POST {{api_v2_1}}/insert_data/get_data HTTP/1.1
 Content-Type: application/json

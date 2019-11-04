@@ -48,15 +48,36 @@ class Job
         $x = 0;
         $y = 0;
         $p = 10;
-        while($y<10) {
-            $array["word_".$y] = array();
+    
+        $level = 0;
+
+        function setvariable($y) {
+            if(0<=$y && $y<=3){
+                return "word_0";
+            }
+            else if(4<=$y && $y<=8) {
+                return "word_1";
+            }
+            else if(9<=$y && $y<=13) {
+                return "word_2";
+            }
+            else if(14<=$y && $y<=19) {
+                return "word_3";
+            }
+           
+
+        }
+        while($y<20) {
+           
+            $array[setvariable($y)."_".$y] = array();
             while($x<$p) {
-                $array["word_".$y][]=$words[$x];
+                $array[setvariable($y)."_".$y][]=$words[$x];
                 $x++;
             }
             $p=$p+10;
             $y++;
-        }  
+        } 
+  
         return json_encode($array,JSON_UNESCAPED_UNICODE);
     }
     public static function  getAllOrder() 

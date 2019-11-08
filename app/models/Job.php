@@ -52,21 +52,16 @@ class Job
         $level = 0;
 
         function setvariable($y) {
-            if(0<=$y && $y<=4){
+            if(0<=$y && $y<5){
                 return "word_0";
-            }
-            else if(5<=$y && $y<=9) {
+            } else if(5<=$y && $y<10) {
                 return "word_1";
-            }
-            else if(10<=$y && $y<=14) {
+            } else if(10<=$y && $y<15) {
                 return "word_2";
-            }
-            else if(15<=$y && $y<=19) {
+            } else if(15<=$y && $y<20) {
                 return "word_3";
             }
         }
-
-
         while($y<20) {
             $array[setvariable($y)."_".$y] = array();
             while($x<$p) {

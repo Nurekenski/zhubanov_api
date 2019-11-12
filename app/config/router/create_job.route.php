@@ -6,6 +6,8 @@ use Respect\Validation\Validator as v;
 
 $app->group('/insert_data', function () use ($app) {
 
+    $app->post('/sign[/]', \Controllers\SignupController::class . ':signIn');
+
     $app->get('/getlatinwords[/]', \Controllers\SignupController::class . ':getLatin');
 
     $app->post('/insert[/]', \Controllers\SignupController::class . ':insertLatinData');

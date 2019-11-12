@@ -16,13 +16,40 @@ use Lib\Functions;
 class SignupController extends Controller
 {
     
+    public function object_to_array($data)
+        {
+            if (is_array($data) || is_object($data))
+            {
+                $result = array();
+                foreach ($data as $key => $value)
+                {
+                    $result[$key] = object_to_array($value);
+                }
+                return $result;
+            }
+            return $data;
+        }
+    public function signIn($request, $response, $args = [])
+    {
+        $phone = $this->getParam('phone');
+       
+        $insertLatin = Job::getSignId($phone);
+    
+        if ($insertLatin){
+            return $insertLatin;
+        }
+        else {
+            return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");
+        }
+    }
     public function insertLatinData($request, $response, $args = [])
     {
         $country = $this->getParam('country');
         $name = $this->getParam('name');
         $point = $this->getParam('point');
+        $phone = $this->getParam('phone');
        
-        $insertLatin = Job::insertLatinData($country,$name,$point);
+        $insertLatin = Job::insertLatinData($country,$name,$point,$phone);
 
         if ($insertLatin){
             $this->success(OK, ['message' => 'Successfully inserted', 'id' => $insertLatin]);   

@@ -10,28 +10,53 @@ use Lib\Validate;
 
 class Job
 {
-    public static function  insertLatinData($country,$name,$point) 
+    public static function  insertLatinData($country,$name,$point,$phone) 
     { 
-        $sql = "INSERT INTO information(country,name,point,unique_id) 
-        VALUES(:country,:name,:point,:unique_id)";
+       
 
-        $unique_id = uniqid("U");
-        $neworder = Db::getInstance()->Query($sql,
+        $check = "SELECT * FROM information WHERE phone = :phone";
+        $user = Db::getInstance()->Select_($check,
             [
-                'country' => $country,
-                'name' => $name,
-                'point' => $point,
-                'unique_id' => $unique_id
-            ]
-        );
-        if($neworder) {
-           return $unique_id;
-        } else {
+                'phone' => $phone,
+            ], 
+        false);
+        
+        if(!$user) {
+            $sql = "INSERT INTO information(country,name,point,unique_id,phone) 
+            VALUES(:country,:name,:point,:unique_id,:phone)";
+    
+            $unique_id = uniqid("U");
+            $neworder = Db::getInstance()->Query($sql,
+                [
+                    'country' => $country,
+                    'name' => $name,
+                    'point' => $point,
+                    'unique_id' => $unique_id,
+                    'phone' => $phone
+                ]
+            );
+            if($neworder) {
+               return $unique_id;
+            } else {
+                return false;
+            }  
+        }
+        else {
             return false;
-        }  
+        }
     }
-
-
+    public static function  getSignId($phone) 
+    { 
+        $sql = "SELECT unique_id FROM information WHERE phone = :phone";
+        $user = Db::getInstance()->Select($sql,
+            [
+                'phone' => $phone
+            ], 
+        false);
+        
+        return json_encode($user);
+    }
+    
 
     public static function  getAllWords() 
     { 

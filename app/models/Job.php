@@ -10,6 +10,44 @@ use Lib\Validate;
 
 class Job
 {
+    public static function  getTestResults($user_id) 
+    {  
+        $getTest = "SELECT * FROM points WHERE user_id = :user_id";
+
+        $getTests = Db::getInstance()->Select_($getTest,
+            [
+                'user_id' => $user_id,
+            ], 
+        true); 
+
+        if($getTests) {
+            return json_encode($getTests);
+        }
+        else {
+            return false;
+        }
+
+    }
+    public static function  pushTestResult($level,$color,$point,$user_id) 
+    { 
+        $sql = "INSERT INTO points(level,color,point,user_id) 
+        VALUES(:level,:color,:point,:user_id)";
+
+        $neworder = Db::getInstance()->Query($sql,
+            [
+                'level' => $level,
+                'color' => $color,
+                'point' => $point,
+                'user_id' => $user_id
+            ]
+        );
+
+        if($neworder) {
+           return true;
+        } else {
+            return false;
+        }  
+    }
     public static function  insertLatinData($country,$name,$point,$phone) 
     { 
        

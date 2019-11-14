@@ -15,20 +15,21 @@ use Lib\Functions;
 
 class SignupController extends Controller
 {
+     
+    public function getTest($request, $response, $args = [])
+    {
+        $phone = $this->getParam('user_id');
+       
+        $insertLatin = Job::getTestResults($phone);
     
-    public function object_to_array($data)
-        {
-            if (is_array($data) || is_object($data))
-            {
-                $result = array();
-                foreach ($data as $key => $value)
-                {
-                    $result[$key] = object_to_array($value);
-                }
-                return $result;
-            }
-            return $data;
+        if ($insertLatin){
+            return $insertLatin;
         }
+        else {
+            return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");
+        }
+    }
+
     public function signIn($request, $response, $args = [])
     {
         $phone = $this->getParam('phone');
@@ -37,6 +38,22 @@ class SignupController extends Controller
     
         if ($insertLatin){
             return $insertLatin;
+        }
+        else {
+            return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");
+        }
+    }
+    public function pushTest($request, $response, $args = [])
+    {
+        $level = $this->getParam('level');
+        $color = $this->getParam('color');
+        $point = $this->getParam('point');
+        $user_id = $this->getParam('user_id');
+       
+        $insertTestResult = Job::pushTestResult($level,$color,$point,$user_id);
+    
+        if ($insertTestResult){
+            return "true";
         }
         else {
             return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");
@@ -55,7 +72,7 @@ class SignupController extends Controller
             $this->success(OK, ['message' => 'Successfully inserted', 'id' => $insertLatin]);   
         }
         else {
-            return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");
+            return $this->error(BAD_REQUEST, NOT_UPDATED, "user exist");
         }
     }
     public function getLatin($request, $response, $args = [])

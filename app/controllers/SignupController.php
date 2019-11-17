@@ -45,15 +45,14 @@ class SignupController extends Controller
     }
     public function pushTest($request, $response, $args = [])
     {
-        $level = $this->getParam('level');
-        $color = $this->getParam('color');
         $point = $this->getParam('point');
         $user_id = $this->getParam('user_id');
-       
-        $insertTestResult = Job::pushTestResult($level,$color,$point,$user_id);
+        $level = $this->getParam('level');
+        
+        $insertTestResult = Job::pushTestResult($point,$user_id,$level);
     
         if ($insertTestResult){
-            return "true";
+            $this->success(OK, ['message' => 'Successfully inserted', 'message' => "inserted"]);  
         }
         else {
             return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");

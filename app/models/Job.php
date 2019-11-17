@@ -16,7 +16,7 @@ class Job
 
         $getTests = Db::getInstance()->Select_($getTest,
             [
-                'user_id' => $user_id,
+                'user_id' => $user_id
             ], 
         true); 
 
@@ -28,25 +28,19 @@ class Job
         }
 
     }
-    public static function  pushTestResult($level,$color,$point,$user_id) 
+    public static function  pushTestResult($point,$user_id,$level) 
     { 
-        $sql = "INSERT INTO points(level,color,point,user_id) 
-        VALUES(:level,:color,:point,:user_id)";
-
-        $neworder = Db::getInstance()->Query($sql,
+        $update = "UPDATE points SET point=:point where user_id=:user_id and level=:level";
+        $updatePoint =Db::getInstance()->Query($update,
             [
-                'level' => $level,
-                'color' => $color,
+                
                 'point' => $point,
-                'user_id' => $user_id
-            ]
-        );
-
-        if($neworder) {
-           return true;
-        } else {
-            return false;
-        }  
+                'user_id' => $user_id,
+                'level' => $level
+            ], 
+        false);
+            
+        return $updatePoint; 
     }
     public static function  insertLatinData($country,$name,$point,$phone) 
     { 

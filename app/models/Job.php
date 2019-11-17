@@ -28,15 +28,16 @@ class Job
         }
 
     }
-    public static function  pushTestResult($point,$user_id,$level) 
+    public static function  pushTestResult($point,$user_id,$level,$color) 
     { 
-        $update = "UPDATE points SET point=:point where user_id=:user_id and level=:level";
+        $update = "UPDATE points SET point=:point,color=:color where user_id=:user_id and level=:level";
         $updatePoint =Db::getInstance()->Query($update,
             [
                 
                 'point' => $point,
                 'user_id' => $user_id,
-                'level' => $level
+                'level' => $level,
+                'color' => $color
             ], 
         false);
             

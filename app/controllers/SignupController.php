@@ -48,8 +48,8 @@ class SignupController extends Controller
         $point = $this->getParam('point');
         $user_id = $this->getParam('user_id');
         $level = $this->getParam('level');
-        
-        $insertTestResult = Job::pushTestResult($point,$user_id,$level);
+        $color = $this->getParam('color');
+        $insertTestResult = Job::pushTestResult($point,$user_id,$level,$color);
     
         if ($insertTestResult){
             $this->success(OK, ['message' => 'Successfully inserted', 'message' => "inserted"]);  

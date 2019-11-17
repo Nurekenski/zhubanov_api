@@ -542,7 +542,8 @@ Content-Type: application/json
 {
   "point": "15",
   "user_id": "87074252290",
-  "level": "1_1"
+  "level": "1_1",
+  "color": "#54d28b"
 }
 ###
 

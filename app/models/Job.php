@@ -10,6 +10,29 @@ use Lib\Validate;
 
 class Job
 {
+    // public static function pushResults($id,$level,$color,$point,$user_id,$tour,$bolim) {
+        
+    //     $sql = "INSERT INTO points(id,level,color,point,user_id,tour,bolim) 
+    //     VALUES(:id,:level,:color,:point,:user_id,:tour,:bolim)";
+
+    //     $neworder = Db::getInstance()->Query($sql,
+    //         [
+    //             'id'=>$id,
+    //             'level'=>$level,
+    //             'color'=>$color,
+    //             'point'=>$point,
+    //             'user_id'=>$user_id,
+    //             'tour'=>$tour,
+    //             'bolim'=>$bolim
+    //         ]
+    //     );
+
+    //     if($neworder) {
+    //        return $unique_id;
+    //     } else {
+    //         return false;
+    //     }  
+    // }
     public static function  getTestResults($user_id) 
     {  
         $getTest = "SELECT * FROM points WHERE user_id = :user_id";
@@ -45,19 +68,18 @@ class Job
     }
     public static function  insertLatinData($country,$name,$point,$phone) 
     { 
-       
-
         $check = "SELECT * FROM information WHERE phone = :phone";
         $user = Db::getInstance()->Select_($check,
             [
                 'phone' => $phone,
             ], 
         false);
-        
+    
+
         if(!$user) {
             $sql = "INSERT INTO information(country,name,point,unique_id,phone) 
             VALUES(:country,:name,:point,:unique_id,:phone)";
-    
+
             $unique_id = uniqid("U");
             $neworder = Db::getInstance()->Query($sql,
                 [
@@ -68,6 +90,208 @@ class Job
                     'phone' => $phone
                 ]
             );
+
+            $array = array(
+                array(
+            
+                  "level" => "1_1",
+                  "color" => "#e91e63",
+                  "point" => "0",
+                  "user_id" => "87074252290",
+                  "tour" => "0",
+                  "bolim" => "I"
+                ),
+                array(
+          
+                  "level"=> "1_2",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "1",
+                  "bolim"=> "II"
+                ),
+                array(
+             
+                  "level"=> "1_3",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "2",
+                  "bolim"=> "III"
+                ),
+                array(
+                 
+                  "level"=> "1_4",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "3",
+                  "bolim"=> "IV"
+                ),
+                array(
+         
+                  "level"=> "1_5",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "4",
+                  "bolim"=> "V"
+                ),
+                array(
+              
+                  "level"=> "2_1",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "5",
+                  "bolim"=> "I"
+                ),
+                array(
+            
+                  "level"=> "2_2",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "6",
+                  "bolim"=> "II"
+                ),
+                array(
+             
+                  "level"=> "2_3",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "7",
+                  "bolim"=> "III"
+                ),
+                array(
+            
+                  "level"=> "2_4",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "8",
+                  "bolim"=> "IV"
+                ),
+                array(
+                
+                  "level"=> "2_5",
+                  "color"=> "#e91e63",
+                  "point"=>"0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "9",
+                  "bolim"=> "V"
+                ),
+                array(
+           
+                  "level"=> "3_1",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "10",
+                  "bolim"=> "I"
+                ),
+                array(
+                
+                  "level"=> "3_2",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "11",
+                  "bolim"=> "II"
+                ),
+                array(
+              
+                  "level"=> "3_3",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "12",
+                  "bolim"=> "III"
+                ),
+                array(
+                
+                  "level"=> "3_4",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "13",
+                  "bolim"=> "IV"
+                ),
+                array(
+                  
+                  "level"=> "3_5",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "14",
+                  "bolim"=> "V"
+                ),
+                array(
+                  
+                  "level"=>"4_1",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "15",
+                  "bolim"=> "I"
+                ),
+                array(
+                  
+                  "level"=> "4_2",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "16",
+                  "bolim"=> "II"
+                ),
+                array(
+              
+                  "level"=> "4_3",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "17",
+                  "bolim"=> "III"
+                ),
+                array(
+               
+                  "level"=> "4_4",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "18",
+                  "bolim"=> "IV"
+                ),
+                array(
+              
+                  "level"=> "4_5",
+                  "color"=> "#e91e63",
+                  "point"=> "0",
+                  "user_id"=> "87074252290",
+                  "tour"=> "19",
+                  "bolim"=> "V"
+                )
+            );
+
+   
+            
+            for($i=0; $i <sizeof($array); $i++) { 
+                $query = "INSERT INTO points(id,level,color,point,user_id,tour,bolim) 
+                VALUES(:id,:level,:color,:point,:user_id,:tour,:bolim)";
+                    Db::getInstance()->Query($query,
+                            [
+                                'id' =>'',
+                                'level'=>$array[$i]["level"],
+                                'color'=>$array[$i]["color"],
+                                'point'=>$array[$i]["point"],
+                                'user_id'=>$unique_id,
+                                'tour'=>$array[$i]["tour"],
+                                'bolim'=>$array[$i]["bolim"]
+                            ]
+                    );
+            }
+           
             if($neworder) {
                return $unique_id;
             } else {

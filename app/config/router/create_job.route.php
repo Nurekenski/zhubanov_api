@@ -10,6 +10,8 @@ $app->group('/insert_data', function () use ($app) {
     
     $app->post('/pushtestresult[/]', \Controllers\SignupController::class . ':PushTest');
     
+    $app->post('/push_after_registration[/]', \Controllers\SignupController::class . ':PushAfterRegistration');
+    
     $app->post('/gettestresults[/]', \Controllers\SignupController::class . ':getTest');
 
     $app->get('/getlatinwords[/]', \Controllers\SignupController::class . ':getLatin');

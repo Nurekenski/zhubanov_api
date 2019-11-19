@@ -15,7 +15,27 @@ use Lib\Functions;
 
 class SignupController extends Controller
 {
-     
+    
+    public function PushAfterRegistration($request, $response, $args = [])
+    {
+        $id = $this->getParam('id');
+        $level = $this->getParam('level');
+        $color = $this->getParam('color');
+        $point = $this->getParam('point');
+        $user_id = $this->getParam('user_id');
+        $tour = $this->getParam('tour');
+        $bolim = $this->getParam('bolim');
+      
+        $push = Job::pushResults($id,$level,$color,$point,$user_id,$tour,$bolim);
+
+        if ($push){
+            $this->success(OK, ['message' => 'Successfully inserted', 'message' => "inserted"]);  
+        }
+        else {
+            return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");
+        }
+    
+    }
     public function getTest($request, $response, $args = [])
     {
         $phone = $this->getParam('user_id');

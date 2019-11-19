@@ -531,7 +531,7 @@ POST {{api_v2_1}}/insert_data/gettestresults HTTP/1.1
 Content-Type: application/json
 
 {
-  "user_id": "87074252290"
+  "user_id": "U5dcaaf5235f00"
 }
 ###
 
@@ -547,6 +547,20 @@ Content-Type: application/json
 }
 ###
 
+###
+POST {{api_v2_1}}/insert_data/push_after_registration HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "1",
+    "level": "1_1",
+    "color": "#e91e63",
+    "point": "0",
+    "user_id": "87074252290",
+    "tour": "0",
+    "bolim": "I"
+}
+###
 
 ###
 GET {{api_v2_1}}/insert_data/getbyid HTTP/1.1
@@ -574,7 +588,7 @@ Content-Type: application/json
     "country": "Almaty",
     "name": "Nurbol",
     "point": "",
-    "phone": "87074252292"
+    "phone": "87074253388"
 }
 ###
 

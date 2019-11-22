@@ -10,29 +10,54 @@ use Lib\Validate;
 
 class Job
 {
-    // public static function pushResults($id,$level,$color,$point,$user_id,$tour,$bolim) {
+
+    public static function getStatisticsLatin() {
         
-    //     $sql = "INSERT INTO points(id,level,color,point,user_id,tour,bolim) 
-    //     VALUES(:id,:level,:color,:point,:user_id,:tour,:bolim)";
+        $getTest = "SELECT * FROM information";
+        
+        $getTests = Db::getInstance()->Select_($getTest,
+            [
+            ], 
+        true); 
+        
+        $someArray = json_decode(json_encode($getTests), true);
+        // print_r($someArray); 
 
-    //     $neworder = Db::getInstance()->Query($sql,
-    //         [
-    //             'id'=>$id,
-    //             'level'=>$level,
-    //             'color'=>$color,
-    //             'point'=>$point,
-    //             'user_id'=>$user_id,
-    //             'tour'=>$tour,
-    //             'bolim'=>$bolim
-    //         ]
-    //     );
+        $ar1 = array();
+        $ar2 = array();
+        $ar3 = array();
+        $ar4 = array();
+        for ($i=0; $i <sizeof($someArray) ; $i++) { 
+            $sql = "SELECT * FROM points where user_id = :user_id";
+            
+            array_push($ar1,$someArray[$i]['name']);
+            array_push($ar2,$someArray[$i]['country']);
+            array_push($ar4,$someArray[$i]['surname']);
+            $get = Db::getInstance()->Select_($sql,
+                [
+                    'user_id' => $someArray[$i]['unique_id']
+                ], 
+            true);  
+            array_push($ar3,Functions::printer(json_decode(json_encode($get),true)));
+        }
 
-    //     if($neworder) {
-    //        return $unique_id;
-    //     } else {
-    //         return false;
-    //     }  
-    // }
+        $result = array();
+          for ($i=0; $i<count($ar1); $i++) { 
+            array_push($result, array(
+            'point' => $ar1[$i],
+            'name' => $ar2[$i],
+            'surname' => $ar4[$i],
+            'percent' => $ar3[$i]
+         ));
+        }
+      
+        if($getTests) {
+            return json_encode($result, JSON_UNESCAPED_UNICODE);
+        }
+        else {
+            return false;
+        } 
+    }
     public static function  getTestResults($user_id) 
     {  
         $getTest = "SELECT * FROM points WHERE user_id = :user_id";

@@ -48,8 +48,18 @@ class SignupController extends Controller
         else {
             return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");
         }
-    }
+    }   
+    public function getStatistics($request, $response, $args = []) {
+        
+        $getStatistics = Job::getStatisticsLatin();
 
+        if ($getStatistics){
+            return   $getStatistics;
+        }
+        else {
+            return $this->error(BAD_REQUEST, NOT_UPDATED, "not shown");
+        }
+    }
     public function signIn($request, $response, $args = [])
     {
         $phone = $this->getParam('phone');
@@ -167,14 +177,7 @@ class SignupController extends Controller
      * @throws \Exception
      */
 
-    public function getStatistics($request, $response, $args = [])
-    {
-        //   $is_auth = $request->getAttribute('is_auth');
-        //   if($is_auth) {
-              $getStatistics = Job::getStatisticsData();
-              return $getStatistics;
-        //   }
-    }
+
     public function registration($request, $response, $args = [])
     {
         // $temp_auth= $request->getAttribute('temp_auth');

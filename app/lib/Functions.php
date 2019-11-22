@@ -77,7 +77,14 @@ class Functions
     }
 
   
-
+    public static function printer($array) {
+        $sum = 0;
+        for ($i=0; $i <sizeof($array); $i++) { 
+             $sum = $sum + (int)$array[$i]['point'];
+           
+        }
+        return $sum;
+    }
     /**
      * @param $phone
      * @param int $country_id

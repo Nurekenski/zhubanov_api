@@ -91,7 +91,7 @@ class Job
             
         return $updatePoint; 
     }
-    public static function  insertLatinData($country,$name,$point,$phone) 
+    public static function  insertLatinData($country,$name,$surname,$point,$phone) 
     { 
         $check = "SELECT * FROM information WHERE phone = :phone";
         $user = Db::getInstance()->Select_($check,
@@ -102,17 +102,19 @@ class Job
     
 
         if(!$user) {
-            $sql = "INSERT INTO information(country,name,point,unique_id,phone) 
-            VALUES(:country,:name,:point,:unique_id,:phone)";
+            $sql = "INSERT INTO information(country,name,surname,point,unique_id,phone) 
+            VALUES(:country,:name,:surname,:point,:unique_id,:phone,)";
 
             $unique_id = uniqid("U");
             $neworder = Db::getInstance()->Query($sql,
                 [
                     'country' => $country,
                     'name' => $name,
+                    'surname' => $surname,
                     'point' => $point,
                     'unique_id' => $unique_id,
-                    'phone' => $phone
+                    'phone' => $phone,
+                 
                 ]
             );
 

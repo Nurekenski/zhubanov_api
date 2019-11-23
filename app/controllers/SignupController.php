@@ -92,10 +92,12 @@ class SignupController extends Controller
     {
         $country = $this->getParam('country');
         $name = $this->getParam('name');
+        $surname = $this->getParam('surname');
         $point = $this->getParam('point');
         $phone = $this->getParam('phone');
        
-        $insertLatin = Job::insertLatinData($country,$name,$point,$phone);
+        $insertLatin = Job::insertLatinData($country,$name,$surname,$point,$phone);
+        
 
         if ($insertLatin){
             $this->success(OK, ['message' => 'Successfully inserted', 'id' => $insertLatin]);   

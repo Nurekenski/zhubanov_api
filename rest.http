@@ -595,7 +595,8 @@ Content-Type: application/json
 
 {
     "country": "Almaty",
-    "name": "Nurbol",
+    "name": "Meirim",
+    "surname": "Asanov",
     "point": "",
     "phone": "87074253388"
 }

@@ -99,11 +99,11 @@ class Job
                 'phone' => $phone,
             ], 
         false);
-    
-
-        if(!$user) {
+            
+     
+        if(empty($user)) {
             $sql = "INSERT INTO information(country,name,surname,point,unique_id,phone) 
-            VALUES(:country,:name,:surname,:point,:unique_id,:phone,)";
+            VALUES(:country,:name,:surname,:point,:unique_id,:phone)";
 
             $unique_id = uniqid("U");
             $neworder = Db::getInstance()->Query($sql,
@@ -302,24 +302,22 @@ class Job
             );
 
    
-            
-            for($i=0; $i <sizeof($array); $i++) { 
-                $query = "INSERT INTO points(id,level,color,point,user_id,tour,bolim) 
-                VALUES(:id,:level,:color,:point,:user_id,:tour,:bolim)";
-                    Db::getInstance()->Query($query,
-                            [
-                                'id' =>'',
-                                'level'=>$array[$i]["level"],
-                                'color'=>$array[$i]["color"],
-                                'point'=>$array[$i]["point"],
-                                'user_id'=>$unique_id,
-                                'tour'=>$array[$i]["tour"],
-                                'bolim'=>$array[$i]["bolim"]
-                            ]
-                    );
-            }
-           
             if($neworder) {
+                for($i=0; $i <sizeof($array); $i++) { 
+                    $query = "INSERT INTO points(id,level,color,point,user_id,tour,bolim) 
+                    VALUES(:id,:level,:color,:point,:user_id,:tour,:bolim)";
+                        Db::getInstance()->Query($query,
+                                [
+                                    'id' =>'',
+                                    'level'=>$array[$i]["level"],
+                                    'color'=>$array[$i]["color"],
+                                    'point'=>$array[$i]["point"],
+                                    'user_id'=>$unique_id,
+                                    'tour'=>$array[$i]["tour"],
+                                    'bolim'=>$array[$i]["bolim"]
+                                ]
+                        );
+                }
                return $unique_id;
             } else {
                 return false;
@@ -328,6 +326,7 @@ class Job
         else {
             return false;
         }
+     
     }
     public static function  getSignId($phone) 
     { 

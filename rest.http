@@ -531,7 +531,7 @@ POST {{api_v2_1}}/insert_data/gettestresults HTTP/1.1
 Content-Type: application/json
 
 {
-  "user_id": "U5dd5069125c05"
+  "user_id": "U5dcaaf5235f00"
 }
 ###
 
@@ -598,7 +598,7 @@ Content-Type: application/json
     "name": "Meirim",
     "surname": "Asanov",
     "point": "",
-    "phone": "87074253388"
+    "phone": "87074252288"
 }
 ###
 

@@ -51,6 +51,7 @@ class Functions
         } 
         
         $res = json_decode(json_encode($array,JSON_UNESCAPED_UNICODE),true)["word_".$kezen."_".$tour];
+  
         return $res;
     }
     public static function postQuery($url, $curl_data = [], $headers = [], $decode = true)

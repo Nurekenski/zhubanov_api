@@ -14,15 +14,15 @@ class Job
         $counter = 0;
        
        $main_array = Functions::getAllWords($kezen,$tour);
-
+    
        for ($i=0; $i <sizeof($main_array); $i++) { 
-        $stripped = str_replace(' ', '', $main_array[$i]["latin"]);
-                if(strtolower($stripped)===$first_array[$i]) {
-                    $counter++;
-                }
-     
+            $stripped = strtolower(str_replace(' ', '', $main_array[$i]["latin"]));
+
+            if($stripped===$first_array[$i]) {
+                $counter++;
+            }
        }
-       
+      
        return $counter;
     }
     public static function getStatisticsLatin() {

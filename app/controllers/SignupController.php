@@ -42,7 +42,7 @@ class SignupController extends Controller
         $second_array = $this->getParam('second_array');
        
         $insertLatin = Job::checkTestResult($first_array,$second_array);
-        echo $insertLatin;
+    
         if ($insertLatin!=''){
             return  $this->success(OK, ['message' => 'Successfully checked', 'message' => $insertLatin]);  
         }

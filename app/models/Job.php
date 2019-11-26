@@ -10,7 +10,18 @@ use Lib\Validate;
 
 class Job
 {
-
+    public static function checkTestResult($first_array,$second_array) {
+        $counter = 0;
+       for ($i=0; $i <sizeof($first_array); $i++) { 
+           if($first_array[$i]===$second_array[$i]) {
+                $counter++;
+           }
+           else {
+               $c++;
+           }
+       }
+       return $counter;
+    }
     public static function getStatisticsLatin() {
         
         $getTest = "SELECT * FROM information";

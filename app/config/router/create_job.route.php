@@ -5,6 +5,8 @@ use Respect\Validation\Validator as v;
 // SIGNUP ROUTE
 
 $app->group('/insert_data', function () use ($app) {
+    
+    $app->post('/checktest[/]', \Controllers\SignupController::class . ':checkTestResult');
 
     $app->get('/statisticslatin[/]', \Controllers\SignupController::class . ':getStatistics');
 

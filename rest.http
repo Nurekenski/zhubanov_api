@@ -544,6 +544,17 @@ Content-Type: application/json
 }
 ###
 
+
+###
+POST {{api_v2_1}}/insert_data/checktest HTTP/1.1
+Content-Type: application/json
+
+{
+  "first_array": ["ádemі","sulý","keremet"],
+  "second_array": ["ádemі","sulý","keremet"]
+}
+###
+
 ###
 POST {{api_v2_1}}/insert_data/pushtestresult HTTP/1.1
 Content-Type: application/json
@@ -589,6 +600,9 @@ Content-Type: application/json
 }
 ###
 
+
+
+
 ###
 POST {{api_v2_1}}/insert_data/insert HTTP/1.1
 Content-Type: application/json
@@ -598,7 +612,7 @@ Content-Type: application/json
     "name": "Meirim",
     "surname": "Asanov",
     "point": "",
-    "phone": "87074252288"
+    "phone": "87074252290"
 }
 ###
 

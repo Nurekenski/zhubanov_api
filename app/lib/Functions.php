@@ -11,6 +11,48 @@ class Functions
      * @param bool $decode
      * @return mixed
      */
+    public static function getAllWords($kezen,$tour) {
+        
+        $sql = "SELECT * FROM slovar";
+        $words = Db::getInstance()->Select_($sql,
+            [
+               
+            ], 
+        true);
+        
+        $array = [ 
+        ];
+
+        $x = 0;
+        $y = 0;
+        $p = 10;
+    
+        $level = 0;
+
+        function setvariable($y) {
+            if(0<=$y && $y<5){
+                return "word_0";
+            } else if(5<=$y && $y<10) {
+                return "word_1";
+            } else if(10<=$y && $y<15) {
+                return "word_2";
+            } else if(15<=$y && $y<20) {
+                return "word_3";
+            }
+        }
+        while($y<20) {
+            $array[setvariable($y)."_".$y] = array();
+            while($x<$p) {
+                $array[setvariable($y)."_".$y][]=$words[$x];
+                $x++;
+            }
+            $p=$p+10;
+            $y++;
+        } 
+        
+        $res = json_decode(json_encode($array,JSON_UNESCAPED_UNICODE),true)["word_".$kezen."_".$tour];
+        return $res;
+    }
     public static function postQuery($url, $curl_data = [], $headers = [], $decode = true)
     {
         $options = [

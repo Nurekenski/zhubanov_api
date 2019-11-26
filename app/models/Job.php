@@ -10,16 +10,19 @@ use Lib\Validate;
 
 class Job
 {
-    public static function checkTestResult($first_array,$second_array) {
+    public static function checkTestResult($first_array,$kezen,$tour) {
         $counter = 0;
-       for ($i=0; $i <sizeof($first_array); $i++) { 
-           if($first_array[$i]===$second_array[$i]) {
-                $counter++;
-           }
-           else {
-               $c++;
-           }
+       
+       $main_array = Functions::getAllWords($kezen,$tour);
+
+       for ($i=0; $i <sizeof($main_array); $i++) { 
+        $stripped = str_replace(' ', '', $main_array[$i]["latin"]);
+                if(strtolower($stripped)===$first_array[$i]) {
+                    $counter++;
+                }
+     
        }
+       
        return $counter;
     }
     public static function getStatisticsLatin() {

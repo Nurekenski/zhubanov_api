@@ -16,6 +16,20 @@ use Lib\Functions;
 class SignupController extends Controller
 {
     
+    public function getSize($request, $response, $args = [])
+    {
+        
+        $getSize = Job::getSize();
+
+        if($getSize!='') {
+           $this->success(OK, ['message' => 'success', 'message' =>  $getSize ]);  
+        }
+        else {
+            return $this->error(BAD_REQUEST, NOT_UPDATED, "not inserted");
+        }
+        
+
+    }
     public function PushAfterRegistration($request, $response, $args = [])
     {
         $id = $this->getParam('id');

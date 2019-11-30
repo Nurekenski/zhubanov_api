@@ -6,6 +6,8 @@ use Respect\Validation\Validator as v;
 
 $app->group('/insert_data', function () use ($app) {
     
+    $app->get('/getsize[/]', \Controllers\SignupController::class . ':getSize');
+
     $app->post('/checktest[/]', \Controllers\SignupController::class . ':checkTestResult');
 
     $app->get('/statisticslatin[/]', \Controllers\SignupController::class . ':getStatistics');

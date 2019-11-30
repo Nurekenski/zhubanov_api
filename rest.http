@@ -535,6 +535,18 @@ Content-Type: application/json
 }
 ###
 
+
+
+###
+GET {{api_v2_1}}/insert_data/getsize HTTP/1.1
+Content-Type: application/json
+
+{
+
+}
+###
+
+
 ###
 GET {{api_v2_1}}/insert_data/statisticslatin HTTP/1.1
 Content-Type: application/json
@@ -550,9 +562,9 @@ POST {{api_v2_1}}/insert_data/checktest HTTP/1.1
 Content-Type: application/json
 
 {
-  "first_array": ["áýesqoılyq","serýendeý","jaǵajaı","shıpajaı","shіldehana","quttyqtaý","salt-dástúr","muryn","ádemі","sulý"],
-  "kezen": 1,
-  "tour": 6
+  "first_array": ["jasóspirim","sálem","raqmet","jańalyq","árine","keshirińiz","áriptes","ulty","áje","áke"],
+  "kezen": 0,
+  "tour": 0
 }
 ###
 

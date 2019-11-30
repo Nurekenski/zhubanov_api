@@ -11,6 +11,14 @@ class Functions
      * @param bool $decode
      * @return mixed
      */
+    public static function getbyone($text) {
+        $len = strlen($text);
+        for($i = 0; $i < $len; ++$i){
+            echo $text[$i]."\n";
+        } // < and not <=, cause the index starts at 0!
+          
+        }
+    
     public static function getAllWords($kezen,$tour) {
         
         $sql = "SELECT * FROM slovar";

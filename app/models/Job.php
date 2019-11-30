@@ -16,14 +16,32 @@ class Job
        $main_array = Functions::getAllWords($kezen,$tour);
     
        for ($i=0; $i <sizeof($main_array); $i++) { 
-            $stripped = strtolower(str_replace(' ', '', $main_array[$i]["latin"]));
-
-            if($stripped===$first_array[$i]) {
+            $stripped = strtolower(trim(preg_replace('/\s+/', ' ',$main_array[$i]["latin"])));
+            
+            if(strpos($stripped, $first_array[$i]) === 0) {
                 $counter++;
             }
+            else {
+                
+                echo $stripped." -- ".$first_array[$i]."<br>";
+                echo strlen(mb_ereg_replace("[^A-Za-z0-9\.\-]","",$stripped))." -- ".strlen($first_array[$i])."<br>";
+            }
+         
        }
-      
-       return $counter;
+       exit;
+    //    return $counter;
+    }
+
+    public static function getSize() {
+        $getTest = "SELECT * FROM information";
+        
+        $getTests = Db::getInstance()->Select_($getTest,
+            [
+            ], 
+        true); 
+
+        return sizeof($getTests);
+
     }
     public static function getStatisticsLatin() {
         

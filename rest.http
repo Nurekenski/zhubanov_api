@@ -42,6 +42,18 @@ Content-Type: application/json
 ###
 
 
+###
+POST {{api_v2_1}}/api/akeac_insert HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Akeac",
+    "phone": "87074252290",
+    "type": "Intellectual",
+    "email": "encode.kz@gmail.com"
+}
+###
+
 
 ###
 POST {{api_v2_1}}/api/insert HTTP/1.1
@@ -49,7 +61,8 @@ Content-Type: application/json
 
 {   
     "name": "Берик",
-    "email": "nurbol@gmail.com",
+    "email": "nurbol@gmail.",
+    "phone": "888",
     "comment": "you have a message which important to read and check."
 }
 ###

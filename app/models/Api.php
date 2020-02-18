@@ -42,24 +42,21 @@ class Api
             return false;
         }
     }
-
-    public static function get()
+    public static function insertAceak($name,$phone,$type,$email)
     {
-        $get = "SELECT * FROM comments";
-
-        $getcomment = Db::getInstance()->Select_($get,
-            [
         
-            ], 
-        true); 
+        $sql = "INSERT INTO akeac(name,phone,type,email) 
+        VALUES(:name,:phone,:type,:email)";
 
-        if($getcomment) {
-            return json_encode($getcomment,JSON_UNESCAPED_UNICODE);
-        }
-        else {
-            return false;
-        }
+        $neworder = Db::getInstance()->Query($sql,
+            [
+                'name' => $name,
+                'phone' => $phone,
+                'type' => $type,
+                'email' => $email
+            ]);
+        return $neworder;
     }
-
+  
 
 }

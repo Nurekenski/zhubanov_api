@@ -30,8 +30,8 @@ class ApiController extends Controller
         return $get;
     }
     public function telegram($msg) {
-         $telegrambot='1001585847:AAG3nuMsP8o9RfuTFBeg3AhYdb2PPcaZDwE';
-         $telegramchatid=281900870;
+        $telegrambot='1001585847:AAG3nuMsP8o9RfuTFBeg3AhYdb2PPcaZDwE';
+        $telegramchatid=281900870;
         $url='https://api.telegram.org/bot'.$telegrambot.'/sendMessage';$data=array('chat_id'=>$telegramchatid,'text'=>$msg);
         $options=array('http'=>array('method'=>'POST','header'=>"Content-Type:application/x-www-form-urlencoded\r\n",'content'=>http_build_query($data),),);
         $context=stream_context_create($options);
@@ -41,7 +41,7 @@ class ApiController extends Controller
 
     public function insertAkeac($request, $response, $args = [])
     {   
-        $this->telegram("Madenov");
+      
         // $text = "ththth";
         // $chat_id = '1001585847';
         // echo $this->api_url;
@@ -51,6 +51,9 @@ class ApiController extends Controller
         $phone = $this->getParam('phone');
         $type = $this->getParam('type');
         $email = $this->getParam('email');
+
+        $msg = $name." \n ".$phone." \n".$type." \n".$email; 
+        $this->telegram($msg);
 
         $insertLatin = Api::insertAceak($name,$phone,$type,$email);
 

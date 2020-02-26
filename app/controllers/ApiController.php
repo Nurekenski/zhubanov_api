@@ -11,7 +11,30 @@ class ApiController extends Controller
      * @param array $args
      * @return mixed
      */
+    public function insertnews($request, $response, $args = [])
+    {
+        $photo = $_FILES['photo'];
+        $title = $this->getParam('title');
+        $text = $this->getParam('text');
 
+        $new_url = \Models\Avatar::addPhoto($photo->name);
+        
+
+       
+        $insertNews = Api::insertNews($photo,$title,$text);
+
+        return $insertNews;
+    }
+    public function getnews($request, $response, $args = [])
+    {
+        $name = $this->getParam('name');
+        $email = $this->getParam('email');
+        $comment = $this->getParam('comment');
+       
+        $insertLatin = Api::insert($name,$email,$comment);
+
+        return $insertLatin;
+    }
     public function insert($request, $response, $args = [])
     {
         $name = $this->getParam('name');
@@ -29,13 +52,30 @@ class ApiController extends Controller
 
         return $get;
     }
-    public function telegram($msg) {
+    public function telegram_second($msg) {
         $telegrambot='1001585847:AAG3nuMsP8o9RfuTFBeg3AhYdb2PPcaZDwE';
-        $telegramchatid=281900870;
+        $telegramchatid=1032102676;
+
+
         $url='https://api.telegram.org/bot'.$telegrambot.'/sendMessage';$data=array('chat_id'=>$telegramchatid,'text'=>$msg);
         $options=array('http'=>array('method'=>'POST','header'=>"Content-Type:application/x-www-form-urlencoded\r\n",'content'=>http_build_query($data),),);
         $context=stream_context_create($options);
         $result=file_get_contents($url,false,$context);
+        
+        
+        return $result;
+    }
+    public function telegram($msg) {
+        $telegrambot='1001585847:AAG3nuMsP8o9RfuTFBeg3AhYdb2PPcaZDwE';
+        $telegramchatid=281900870;
+
+
+        $url='https://api.telegram.org/bot'.$telegrambot.'/sendMessage';$data=array('chat_id'=>$telegramchatid,'text'=>$msg);
+        $options=array('http'=>array('method'=>'POST','header'=>"Content-Type:application/x-www-form-urlencoded\r\n",'content'=>http_build_query($data),),);
+        $context=stream_context_create($options);
+        $result=file_get_contents($url,false,$context);
+        
+        
         return $result;
     }
 
@@ -54,6 +94,7 @@ class ApiController extends Controller
 
         $msg = $name." \n ".$phone." \n".$type." \n".$email; 
         $this->telegram($msg);
+        $this->telegram_second($msg);
 
         $insertLatin = Api::insertAceak($name,$phone,$type,$email);
 

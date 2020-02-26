@@ -57,6 +57,16 @@ class Api
             ]);
         return $neworder;
     }
-  
+    public static function  insertNews($photo,$title,$text) {
+        $sql = "INSERT INTO akeacnews(photo,title,text) 
+        VALUES(:photo,:title,:text)";
 
+        $neworder = Db::getInstance()->Query($sql,
+            [
+                'photo' => $photo,
+                'title' => $title,
+                'text' => $text
+            ]);
+        return $neworder;
+    }
 }

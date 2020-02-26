@@ -161,9 +161,10 @@ class AvatarController extends Controller
         // $second_path = new Avatar($second);
         // $third_path = new Avatar($third);
         // $fourth_path = new Avatar($fourth);
-
-
     }
+
+
+
     public function add($request, $response, $args = [])
     {
         $is_auth = $request->getAttribute('temp_auth');
@@ -214,9 +215,6 @@ class AvatarController extends Controller
                 ]
             );
         }
-
-       
-
     }
 
 
